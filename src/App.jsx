@@ -1,6 +1,7 @@
 import Router from "./pages/shared/Router";
-function App() {
-  return <Router />;
-}
+
+const App = () => {
+  return <Router></Router>;
+};
 
 export default App;
