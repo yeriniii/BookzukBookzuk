@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import Logo from "../../assets/MainLogo.png";
+import Logo from "../../assets/bookzuk-logo.png";
 import { useNavigate } from "react-router-dom";
 
 const Header = () => {
@@ -45,18 +45,17 @@ const HeaderWrapper = styled.div`
 const LogoImage = styled.div`
   display: flex;
   align-items: center;
-
   cursor: pointer;
+  margin-left: 10px;
   img {
     width: 100%;
-    max-width: 10rem;
+    max-width: 60px;
     height: auto;
   }
 `;
 const TabBtn = styled.div`
   display: flex;
   gap: 13rem;
-
   button {
     border: none;
     background-color: transparent;
