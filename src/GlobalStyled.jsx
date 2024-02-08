@@ -55,7 +55,9 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-
+a{
+	text-decoration: none;
+}
 `;
 
 export default GlobalStyle;
