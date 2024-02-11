@@ -16,8 +16,19 @@ querySnapShot.forEach((doc) => {
 
 const initialState = initialCreatedLists;
 
+const SEARCHEDBOOK = "SEARCHEDBOOK";
+
+export const searchedBooks = (filteredLists) => {
+  return {
+    type: SEARCHEDBOOK,
+    pyload: filteredLists,
+  };
+};
+
 const list = (state = initialState, action) => {
   switch (action.type) {
+    case SEARCHEDBOOK:
+      return action.pyload;
     default:
       return state;
   }
