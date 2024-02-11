@@ -7,12 +7,23 @@ export const setUser = (user) => {
         payload: user
     };
 };
-
 export const clearUser = () => {
     return {
         type: actionTypes.CLEAR_USER
     };
 };
+export const setUserProfile = (profile) => {
+    return {
+        type: actionTypes.SET_USER_PROFILE,
+        payload: profile
+    }
+};
+export const setUserPost = (posts) => {
+    return {
+        type: actionTypes.SET_USER_POSTS,
+        payload: posts
+    }
+}
 
 // 게시글 관련 정의
 export const addPost = (payload) => {
