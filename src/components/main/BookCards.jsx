@@ -1,6 +1,13 @@
-import styled from "styled-components";
 import Logo from "../../assets/bookzuk-logo.png";
 import { Link } from "react-router-dom";
+import {
+  BookCard,
+  BookCardBox,
+  BookImg,
+  BookTitle,
+  ReviewContents,
+  UserName,
+} from "./MainPageStyled";
 
 // 에러가 뜨는데 작동이 됨;;
 const BookCards = ({ list }) => {
@@ -23,58 +30,3 @@ const BookCards = ({ list }) => {
 };
 
 export default BookCards;
-
-const BookCard = styled.article`
-  height: 300px;
-  width: 200px;
-  padding: 20px;
-  border: 1px solid black;
-  box-shadow: 3px 3px 3px black;
-  p {
-    color: black;
-  }
-`;
-
-const BookCardBox = styled.div`
-  height: 250px;
-  width: 150px;
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-`;
-
-const BookImg = styled.div`
-  display: flex;
-  align-items: center;
-  height: 150px;
-  width: 150px;
-  img {
-    width: 100%;
-    height: 100%;
-  }
-`;
-
-const BookTitle = styled.p`
-  max-width: 150px;
-  font-size: 24px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-`;
-
-const ReviewContents = styled.p`
-  max-width: 150px;
-  font-size: 18px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-`;
-
-const UserName = styled.p`
-  max-width: 150px;
-  font-size: 13px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  text-align: right;
-`;

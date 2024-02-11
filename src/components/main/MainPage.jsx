@@ -1,11 +1,14 @@
-import styled from "styled-components";
 import { useSelector } from "react-redux";
 import BookCards from "./BookCards";
+import { BookList, MainPageeSt, SearchBox } from "./MainPageStyled";
+// import { useParams } from "react-router-dom";
 
 const MainPage = () => {
   // 리뷰 리스트
   const lists = useSelector((state) => state.list);
   console.log(lists);
+  // 리뷰,추천,중고거래중 하나 가져오기
+  // const paams = useParams()
   return (
     <MainPageeSt>
       <SearchBox>
@@ -13,34 +16,22 @@ const MainPage = () => {
         <button>검색</button>
       </SearchBox>
       <BookList>
-        {lists.map((list) => (
-          <BookCards key={list.id} list={list} />
-        ))}
+        {/* {가져온데이터 === "리뷰"
+          ? lists.map((list) => {
+              if (list.글종류 === "리뷰" || list.글종류 === "추천") {
+                return <BookCards key={list.id} list={list} />;
+              }}) :
+              lists.filter((list) => list.글종류 === "추천")
+              .map((list) => <BookCards key={list.id} list={list} />)} */}
+
+        {lists.map((list) => {
+          return list.글종류 === "추천" || list.글종류 === "리뷰" ? (
+            <BookCards key={list.id} list={list} />
+          ) : null;
+        })}
       </BookList>
     </MainPageeSt>
   );
 };
 
 export default MainPage;
-
-const MainPageeSt = styled.main`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  gap: 2rem;
-`;
-
-const SearchBox = styled.div`
-  display: flex;
-  gap: 1rem;
-`;
-
-const BookList = styled.section`
-  display: flex;
-  flex-wrap: wrap;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  gap: 2rem;
-`;
