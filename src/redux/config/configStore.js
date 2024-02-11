@@ -4,10 +4,8 @@ import userReducer from "../modules/userReducer";
 import postReducer from "../modules/postReducer";
 
 const rootReducer = combineReducers({
-    reducer: {
-        user: userReducer,
-        post: postReducer,
-    },
+    user: userReducer,
+    post: postReducer,
 });
 
 const store = createStore(rootReducer, devToolsEnhancer());

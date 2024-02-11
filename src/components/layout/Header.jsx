@@ -1,9 +1,12 @@
+import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 import styled from "styled-components";
 import Logo from "../../assets/bookzuk-logo.png";
-import { useNavigate } from "react-router-dom";
 
 const Header = () => {
   const navigate = useNavigate();
+  const user = useSelector((state) => state.user.currentUser);
+
   return (
     <>
       <HeaderBlock>
@@ -17,8 +20,15 @@ const Header = () => {
             <button>중고거래</button>
           </TabBtn>
           <ActionBtn>
-            <button>찜 목록</button>
-            <button onClick={() => navigate(`/write`)}>새 글 작성</button>
+            {user ? (
+              <div>
+                <button onClick={() => navigate(`/mypage`)}>마이페이지</button>
+                <button>찜 목록</button>
+                <button onClick={() => navigate(`/write`)}>새 글 작성</button>
+              </div>
+            ) : (
+              <button onClick={() => navigate(`/login`)}>로그인</button>
+            )}
           </ActionBtn>
         </HeaderWrapper>
       </HeaderBlock>
