@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { setUser, clearUser } from "../../redux/modules/actions";
 import { auth } from "../../firebase";
 import {
   createUserWithEmailAndPassword,
@@ -9,6 +11,7 @@ import {
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const dispatch = useDispatch();
 
   const onChange = (event) => {
     const {
@@ -25,8 +28,9 @@ function Login() {
   const signUp = (event) => {
     event.preventDefault();
     createUserWithEmailAndPassword(auth, email, password);
-    console.log("click signIn");
+    console.log("회원가입 완료");
   };
+
   const signIn = async (event) => {
     event.preventDefault();
     try {
@@ -36,16 +40,23 @@ function Login() {
         password
       );
       console.log(userCredential);
+      dispatch(setUser(userCredential.user));
     } catch (error) {
       console.error(error);
     }
   };
+
   const logOut = async (event) => {
     event.preventDefault();
-
-    console.log("click logOut");
-    await signOut(auth);
+    try {
+      await signOut(auth);
+      dispatch(clearUser());
+      console.log("로그아웃 완료");
+    } catch (error) {
+      console.error("로그아웃 에러", error);
+    }
   };
+
   return (
     <div className="App">
       <h2>로그인 페이지</h2>
