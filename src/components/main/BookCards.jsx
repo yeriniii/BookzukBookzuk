@@ -2,36 +2,27 @@ import styled from "styled-components";
 import Logo from "../../assets/bookzuk-logo.png";
 import { Link } from "react-router-dom";
 
-const BookCards = () => {
+// 에러가 뜨는데 작동이 됨;;
+const BookCards = ({ list }) => {
   return (
     // Link 라우터 해야힘
     <Link to={"/write"}>
-      <BookList>
-        <BookCard>
-          <BookCardBox>
-            <BookImg>
-              <img src={Logo} />
-            </BookImg>
-            <BookTitle>타이틀</BookTitle>
-            <ReviewContents>리뷰내용</ReviewContents>
-          </BookCardBox>
-          <UserName>닉네임</UserName>
-        </BookCard>
-      </BookList>
+      <BookCard>
+        <BookCardBox>
+          <BookImg>
+            {/* 이미지도 옵션에 넣어여함 */}
+            <img src={Logo} />
+          </BookImg>
+          <BookTitle>{list.책이름}</BookTitle>
+          <ReviewContents>{list.책내용}</ReviewContents>
+        </BookCardBox>
+        <UserName>{list.닉네임}</UserName>
+      </BookCard>
     </Link>
   );
 };
 
 export default BookCards;
-
-const BookList = styled.section`
-  display: flex;
-  flex-wrap: wrap;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  gap: 2rem;
-`;
 
 const BookCard = styled.article`
   height: 300px;
