@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { setUser, clearUser } from "../../redux/modules/actions";
 import { auth } from "../../firebase";
@@ -7,37 +6,22 @@ import {
   signInWithEmailAndPassword,
   signOut,
 } from "firebase/auth";
+import { updateProfile } from "firebase/auth";
+import { Link } from "react-router-dom";
+import useUserForm from "../../redux/modules/useUserForm";
 
 function Login() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const email = useUserForm("");
+  const password = useUserForm("");
   const dispatch = useDispatch();
-
-  const onChange = (event) => {
-    const {
-      target: { name, value },
-    } = event;
-    if (name === "email") {
-      setEmail(value);
-    }
-    if (name === "password") {
-      setPassword(value);
-    }
-  };
-
-  const signUp = (event) => {
-    event.preventDefault();
-    createUserWithEmailAndPassword(auth, email, password);
-    console.log("회원가입 완료");
-  };
 
   const signIn = async (event) => {
     event.preventDefault();
     try {
       const userCredential = await signInWithEmailAndPassword(
         auth,
-        email,
-        password
+        email.value,
+        password.value
       );
       console.log(userCredential);
       dispatch(setUser(userCredential.user));
@@ -58,31 +42,29 @@ function Login() {
   };
 
   return (
-    <div className="App">
+    <div>
       <h2>로그인 페이지</h2>
-      <form>
+      <form onSubmit={signIn}>
         <div>
           <label>이메일 : </label>
           <input
             type="email"
-            value={email}
-            name="email"
-            onChange={onChange}
+            value={email.value}
+            onChange={email.onChange}
             required
-          ></input>
+          />
         </div>
         <div>
           <label>비밀번호 : </label>
           <input
             type="password"
-            value={password}
-            name="password"
-            onChange={onChange}
+            value={password.value}
+            onChange={password.onChange}
             required
-          ></input>
+          />
         </div>
-        <button onClick={signUp}>회원가입</button>
-        <button onClick={signIn}>로그인</button>
+        <Link to="/signup">회원가입하기</Link>
+        <button type="submit">로그인</button>
         <button onClick={logOut}>로그아웃</button>
       </form>
     </div>

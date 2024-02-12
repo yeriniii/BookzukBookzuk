@@ -1,18 +1,47 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { setUserProfile, setUserPosts } from "../../redux/modules/actions";
 import { auth, db } from "../../firebase";
+import {
+  uploadProfilePicture,
+  saveUserProfile,
+} from "../../redux/modules/uploadProfilePicture";
 
-const ProfilePage = () => {
+const Profile = () => {
   const { profile, posts } = useSelector((state) => state.user);
   const dispatch = useDispatch();
+  const [selectedFile, setSelectedFile] = useState(null);
+  const user = auth.currentUser;
+
+  if (!profile) {
+    return <div>프로필 정보를 등록해주세요!</div>;
+  }
+
+  /**프로필 수정 누르고 파일 바꾸기 */
+  const handleFileChange = (e) => {
+    setSelectedFile(e.target.files[0]);
+  };
+
+  /**프로필 사진 업로드 */
+  const handleUploadPicture = async () => {
+    if (!selectedFile) {
+      console.error("파일을 선택해주세요.");
+      return;
+    }
+    const imageUrl = await uploadProfilePicture(selectedFile);
+    const updatedProfile = {
+      ...profile,
+      photoURL: imageUrl,
+    };
+    // 업로드된 사진의 URL을 Firestore에 저장
+    await saveUserProfile(updatedProfile);
+    dispatch(setUserProfile(updatedProfile));
+  };
 
   useEffect(() => {
     // 프로필 정보 로딩
     const loadProfile = async () => {
-      const user = auth.currentUser;
       if (user) {
-        // 임시 프로필 설정
         dispatch(
           setUserProfile({
             photoURL: user.photoURL,
@@ -37,13 +66,15 @@ const ProfilePage = () => {
     };
 
     loadProfile();
-  }, [dispatch]);
+  }, [user, dispatch]);
 
   return (
     <div>
       <h1>프로필</h1>
       <div>
-        <img src={profile.photoURL} alt="프로필 사진" />
+        <img src={profile.photoURL || "프로필 이미지"} alt="프로필 사진" />
+        <input type="file" onChange={handleFileChange} />
+        <button onClick={handleUploadPicture}>프로필 등록/수정</button>
         <p>닉네임: {profile.nickname}</p>
         <p>이메일: {profile.email}</p>
       </div>
@@ -60,4 +91,4 @@ const ProfilePage = () => {
   );
 };
 
-export default ProfilePage;
+export default Profile;

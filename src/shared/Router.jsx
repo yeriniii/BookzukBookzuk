@@ -1,9 +1,10 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Home from "../pages/Home";
 import WritePost from "../components/write/WritePost";
-import Mypage from "../../src/pages/Mypage";
+import Profile from "../components/write/Profile";
 import Login from "../components/layout/Login";
 import Header from "../components/layout/Header";
+import Signup from "../components/layout/Signup";
 
 const Router = () => {
   return (
@@ -12,8 +13,9 @@ const Router = () => {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/write" element={<WritePost />} />
-        <Route path="/mypage" element={<Mypage />} />
+        <Route path="/mypage" element={<Profile />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
       </Routes>
     </BrowserRouter>
   );

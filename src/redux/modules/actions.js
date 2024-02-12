@@ -18,12 +18,13 @@ export const setUserProfile = (profile) => {
         payload: profile
     }
 };
-export const setUserPost = (posts) => {
+export const setUserPosts = (posts) => {
     return {
         type: actionTypes.SET_USER_POSTS,
         payload: posts
     }
 }
+
 
 // 게시글 관련 정의
 export const addPost = (payload) => {
