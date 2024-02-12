@@ -2,7 +2,6 @@ import * as actionTypes from './actionTypes';
 
 const initialState = {
     currentUser: null,
-    isLoading: true
 };
 
 const userReducer = (state = initialState, action) => {
@@ -11,13 +10,11 @@ const userReducer = (state = initialState, action) => {
             return {
                 ...state,
                 currentUser: action.payload,
-                isLoading: false
             };
         case actionTypes.CLEAR_USER:
             return {
                 ...state,
                 currentUser: null,
-                isLoading: false
             };
         case actionTypes.SET_USER_PROFILE:
             return {

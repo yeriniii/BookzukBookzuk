@@ -25,9 +25,13 @@ const Header = () => {
                 <button onClick={() => navigate(`/mypage`)}>마이페이지</button>
                 <button>찜 목록</button>
                 <button onClick={() => navigate(`/write`)}>새 글 작성</button>
+                <button onClick={() => navigate(`/logout`)}>로그아웃</button>
               </div>
             ) : (
-              <button onClick={() => navigate(`/login`)}>로그인</button>
+              <div>
+                <button onClick={() => navigate(`/login`)}>로그인</button>
+                <button onClick={() => navigate(`/signup`)}>회원가입</button>
+              </div>
             )}
           </ActionBtn>
         </HeaderWrapper>
@@ -40,17 +44,17 @@ const Header = () => {
 const HeaderBlock = styled.div`
   position: fixed;
   width: 100%;
-  background-color: #01a488;
+  background-color: #f3eff2;
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.08);
 `;
 const HeaderWrapper = styled.div`
+  max-width: 1200px;
   height: 5rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding-left: 1rem;
-  padding-right: 1rem;
   gap: 1rem;
+  margin: 0 auto;
 `;
 const LogoImage = styled.div`
   display: flex;
@@ -58,8 +62,7 @@ const LogoImage = styled.div`
   cursor: pointer;
   margin-left: 10px;
   img {
-    width: 100%;
-    max-width: 60px;
+    width: 140px;
     height: auto;
   }
 `;
