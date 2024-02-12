@@ -1,6 +1,8 @@
 import * as actionTypes from './actionTypes';
 
-const initialState = [];
+const initialState = {
+    posts: []
+};
 
 const postReducer = (state = initialState, action) => {
     switch (action.type) {

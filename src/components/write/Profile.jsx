@@ -8,14 +8,13 @@ import {
 } from "../../redux/modules/uploadProfilePicture";
 
 const Profile = () => {
-  const { profile, posts } = useSelector((state) => state.user);
+  const { profile } = useSelector((state) => state.user);
+  const { posts } = useSelector((state) => state.post);
   const dispatch = useDispatch();
   const [selectedFile, setSelectedFile] = useState(null);
   const user = auth.currentUser;
 
-  if (!profile) {
-    return <div>프로필 정보를 등록해주세요!</div>;
-  }
+  console.log("포스트", posts);
 
   /**프로필 수정 누르고 파일 바꾸기 */
   const handleFileChange = (e) => {
@@ -38,6 +37,8 @@ const Profile = () => {
     dispatch(setUserProfile(updatedProfile));
   };
 
+  console.log("프로필", profile);
+
   useEffect(() => {
     // 프로필 정보 로딩
     const loadProfile = async () => {
@@ -54,7 +55,7 @@ const Profile = () => {
         const userPosts = [];
         /** db에 "posts"로 저장된 문서 중, 사용자 ID와 일치하는 문서를 가져오는 함수 */
         const postsLoding = await db
-          .collection("posts")
+          .collection("books")
           .where("authorId", "==", user.uid)
           .get();
         // 조회한 문서를 배열로 변환하여 userPosts에 저장함
@@ -68,6 +69,10 @@ const Profile = () => {
     loadProfile();
   }, [user, dispatch]);
 
+  if (!profile) {
+    return <div>프로필 정보를 등록해주세요!</div>;
+  }
+
   return (
     <div>
       <h1>프로필</h1>
@@ -80,12 +85,13 @@ const Profile = () => {
       </div>
       <div>
         <h2>내 글</h2>
-        {posts.map((post) => (
-          <div key={post.id}>
-            <h3>{post.title}</h3>
-            <p>{post.content}</p>
-          </div>
-        ))}
+        {posts.length !== 0 &&
+          posts.map((post) => (
+            <div key={post.id}>
+              <h3>{post.title}</h3>
+              <p>{post.content}</p>
+            </div>
+          ))}
       </div>
     </div>
   );
