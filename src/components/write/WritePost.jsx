@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { db } from "../../firebase";
 import { useState } from "react";
 import { collection, addDoc } from "firebase/firestore";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addPost } from "../../redux/modules/actions";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { storage } from "../../firebase";
@@ -14,6 +14,7 @@ function WritePost() {
   const [content, setContent] = useState("");
   const [selectedFile, setSelectedFile] = useState(null);
   const dispatch = useDispatch();
+  const user = useSelector((state) => state.user.currentUser);
 
   const clickClearImage = () => {
     setSelectedFile(null);
@@ -26,16 +27,16 @@ function WritePost() {
     }
     //template literal로 회원정보 uid경로로 저장하기
     //ref함수를 사용하여 스토리지의 경로를 지정하여 업로드. uploadBytes는 프로미스 반환하지 않으니까 then으로 완료시 처리로직 정의
-    const imageRef = ref(storage, "Board/ImageFile");
+    const imageRef = ref(storage, `${user.uid}/${selectedFile}`);
     await uploadBytes(imageRef, selectedFile);
     const imageUrl = await getDownloadURL(imageRef);
     const newPost = {
       category,
       title,
       content,
-      //userName:userObj.displayName,
+      userName: user.displayName,
       createdAt: Date.now(),
-      //createorId:userObj.uid,
+      createorId: user.uid,
       imageUrl,
     };
     try {

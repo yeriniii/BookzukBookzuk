@@ -1,6 +1,7 @@
 import { useDispatch } from "react-redux";
 import { setUser, clearUser } from "../../redux/modules/actions";
 import { auth } from "../../firebase";
+
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,

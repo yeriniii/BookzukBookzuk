@@ -5,6 +5,7 @@ import Profile from "../components/write/Profile";
 import Login from "../components/layout/Login";
 import Header from "../components/layout/Header";
 import Signup from "../components/layout/Signup";
+import FeedDetail from "../components/FeedDetail";
 
 const Router = () => {
   return (
@@ -16,6 +17,7 @@ const Router = () => {
         <Route path="/mypage" element={<Profile />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
+        <Route path="/Detail/:id" element={<FeedDetail />} />
       </Routes>
     </BrowserRouter>
   );
