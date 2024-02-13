@@ -26,6 +26,11 @@ const postReducer = (state = initialState, action) => {
                 }
                 return post;
             });
+        case actionTypes.SET_USER_POSTS:
+            return {
+                ...state,
+                posts: action.payload
+            }
         default:
             return state;
     }
