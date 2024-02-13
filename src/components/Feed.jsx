@@ -1,5 +1,5 @@
 import { useNavigate, useParams } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { deleteDoc, doc } from "firebase/firestore";
 import { db } from "../assets/fierbase";
 import { getStorage } from "firebase/storage";
@@ -8,15 +8,7 @@ import { removePost } from "../redux/modules/actions";
 
 const Feed = ({ FeedObj, isOwner }) => {
   const { id } = useParams();
-  const {
-    title,
-    content,
-    userName,
-    category,
-    createdAt,
-    imageUrl,
-    createorId,
-  } = FeedObj;
+  const { title, content, userName, category, createdAt, imageUrl } = FeedObj;
   const FeedRef = doc(db, "books", `${id}`);
   const storageService = getStorage();
   const dispatch = useDispatch();

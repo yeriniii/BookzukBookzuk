@@ -1,12 +1,9 @@
 import styled from "styled-components";
 import Logo from "../assets/bookzuk-logo.png";
 import { useState } from "react";
-import { setUser } from "../redux/modules/actions";
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import { updateProfile } from "firebase/auth";
 import { auth } from "../assets/fierbase";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
 function CreateAccount() {
   const navigate = useNavigate();
 
@@ -36,7 +33,7 @@ function CreateAccount() {
         const user = userCredential.user;
         console.log(user);
         alert("회원가입이 완료 되었습니다.");
-        navigate("/login");
+        navigate("/");
       })
       .catch((error) => {
         const errorCode = error.code;
