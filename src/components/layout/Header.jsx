@@ -1,12 +1,25 @@
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import Logo from "../../assets/bookzuk-logo.png";
+import { tabClick } from "../../redux/modules/headerReducer";
 
 const Header = () => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const user = useSelector((state) => state.user.currentUser);
 
+  // 헤더 리뷰,추천,중고거래 선택
+  const haaderBox = useSelector((state) => state.headerName);
+  console.log(haaderBox);
+  const handleTabClick = (tabName) => {
+    dispatch(tabClick(tabName));
+    navigate(`/main`);
+  };
+  const tradeBtton = (tabName) => {
+    dispatch(tabClick(tabName));
+    navigate("/trade");
+  };
   return (
     <>
       <HeaderBlock>
@@ -15,9 +28,26 @@ const Header = () => {
             <img src={Logo} alt="logo이미지"></img>
           </LogoImage>
           <TabBtn>
-            <button>리뷰</button>
-            <button>추천</button>
-            <button>중고거래</button>
+            <button
+              value={"리뷰"}
+              selected={"리뷰" === haaderBox}
+              onClick={() => handleTabClick("리뷰")}
+            >
+              리뷰
+            </button>
+            <button
+              value={"추천"}
+              onClick={() => handleTabClick("추천")}
+              selected={"추천" === haaderBox}
+            >
+              추천
+            </button>
+            <button
+              onClick={() => tradeBtton("중고거래")}
+              selected={"추천" === haaderBox}
+            >
+              중고거래
+            </button>
           </TabBtn>
           <ActionBtn>
             {user ? (
@@ -67,12 +97,22 @@ const LogoImage = styled.div`
 `;
 const TabBtn = styled.div`
   display: flex;
-  gap: 13rem;
+  justify-content: center;
+  gap: 1.5rem;
+  height: 70%;
   button {
-    border: none;
-    background-color: transparent;
+    border: 1px solid green;
+    border-radius: 5px;
+    background-color: ${(props) => {
+      console.log(props.selected);
+      props.selected ? "yellow" : "transparent";
+    }};
     cursor: pointer;
-    font-size: 0.9rem;
+    font-size: 1.2rem;
+    width: 130px;
+    &:hover {
+      background-color: yellow;
+    }
   }
 `;
 const ActionBtn = styled.div`
