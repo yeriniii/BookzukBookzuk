@@ -8,7 +8,7 @@ const MainPage = () => {
   // 리뷰 리스트
   const lists = useSelector((state) => state.list);
   console.log(lists);
-  // 리뷰,추천,중고거래중 하나 가져오기
+  // 리뷰,추천,중고거래중 하나 가져오기 or 선택한 value 가져오기
   // const paams = useParams()
 
   // 검색기능

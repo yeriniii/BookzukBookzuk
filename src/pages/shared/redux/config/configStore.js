@@ -1,7 +1,7 @@
 import { createStore } from "redux";
 import { combineReducers } from "redux";
 import { devToolsEnhancer } from "redux-devtools-extension";
-import list from "../modules/list";
+import list from "../modules/listReducer";
 const rootReducer = combineReducers({
   list,
 });
