@@ -1,29 +1,29 @@
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import BookCards from "./BookCards";
 import { BookList, MainPageeSt, SearchBox } from "./MainPageStyled";
 import { useState } from "react";
-import { searchedBooks } from "../../pages/shared/redux/modules/list";
 // import { useParams } from "react-router-dom";
 
 const MainPage = () => {
   // 리뷰 리스트
   const lists = useSelector((state) => state.list);
   console.log(lists);
-  const dispatch = useDispatch();
   // 리뷰,추천,중고거래중 하나 가져오기
   // const paams = useParams()
 
+  // 검색기능
   const [searchText, setSearchText] = useState("");
+  const [searchList, setSearchList] = useState([...lists]);
 
   const searchInputChange = (event) => {
     setSearchText(event.target.value);
   };
 
   const searchButton = () => {
-    const filteredLists = lists.filter((list) =>
+    const filteredLists = [...lists].filter((list) =>
       list.책이름.includes(searchText)
     );
-    dispatch(searchedBooks(filteredLists));
+    setSearchList(filteredLists);
   };
   return (
     <MainPageeSt>
@@ -45,7 +45,7 @@ const MainPage = () => {
               lists.filter((list) => list.글종류 === "추천")
               .map((list) => <BookCards key={list.id} list={list} />)} */}
 
-        {lists.map((list) => {
+        {searchList.map((list) => {
           return list.글종류 === "추천" || list.글종류 === "리뷰" ? (
             <BookCards key={list.id} list={list} />
           ) : null;
