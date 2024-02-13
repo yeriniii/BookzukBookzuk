@@ -1,12 +1,7 @@
 import { useDispatch } from "react-redux";
 import { setUser, clearUser } from "../../redux/modules/actions";
 import { auth } from "../../firebase";
-import {
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-  signOut,
-} from "firebase/auth";
-import { updateProfile } from "firebase/auth";
+import { signInWithEmailAndPassword, signOut } from "firebase/auth";
 import { Link } from "react-router-dom";
 import useUserForm from "../../redux/modules/useUserForm";
 
