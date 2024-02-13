@@ -20,14 +20,22 @@ const postReducer = (state = initialState, action) => {
       return {
         ...state,
         posts: state.posts.map((post) => {
-          return {
-            ...post,
-            title: action.payload.title,
-            category: action.payload.category,
-            content: action.payload.content,
-            createdAt: action.payload.createdAt,
-          };
+          if (post.id === action.payload.id) {
+            return {
+              ...post,
+              title: action.payload.title,
+              category: action.payload.category,
+              content: action.payload.content,
+              createdAt: action.payload.createdAt,
+            };
+          }
+          return post;
         }),
+      };
+    case actionTypes.SET_USER_POSTS:
+      return {
+        ...state,
+        posts: [...state.posts, action.payload],
       };
     default:
       return state;

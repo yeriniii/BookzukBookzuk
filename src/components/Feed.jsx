@@ -16,14 +16,12 @@ import { storage } from "../assets/fierbase";
 import { updateDoc } from "firebase/firestore";
 const Feed = ({ FeedObj, isOwner }) => {
   const { id } = useParams();
-  const { title, content, category, userName, createdAt, imageUrl } = FeedObj;
-  const post = useSelector((state) => state.post.posts);
-  console.log(post);
+  const { posts } = useSelector((state) => state.post);
   const [editing, setEditing] = useState(false); //edit모드 확인
   const [editData, setEditData] = useState({
     ...FeedObj,
     file: null,
-    imageUrl: imageUrl,
+    imageUrl: FeedObj.imageUrl,
   });
   const storageService = getStorage();
   const dispatch = useDispatch();
@@ -34,7 +32,7 @@ const Feed = ({ FeedObj, isOwner }) => {
     const ok = window.confirm("정말로 삭제하시겠습니까?");
     if (ok) {
       await deleteDoc(FeedRef);
-      await deleteObject(ref(storageService, imageUrl));
+      await deleteObject(ref(storageService, FeedObj.imageUrl));
       navigate(`/main`);
       dispatch(removePost(id));
     }
@@ -45,20 +43,23 @@ const Feed = ({ FeedObj, isOwner }) => {
       setEditData({ ...editData, file, imageUrl: URL.createObjectURL(file) });
     }
   };
-  const formattedDate = new Date(createdAt).toLocaleDateString("ko-KR", {
-    year: "numeric",
-    month: "2-digit",
-    day: "2-digit",
-    hour: "2-digit",
-    minute: "2-digit",
-    second: "2-digit",
-  });
+  const formattedDate = new Date(FeedObj.createdAt).toLocaleDateString(
+    "ko-KR",
+    {
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+      hour: "2-digit",
+      minute: "2-digit",
+      second: "2-digit",
+    }
+  );
   const handleEdit = () => {
     setEditing((prev) => !prev);
   };
   const handleCancelEdit = () => {
     setEditing(false);
-    setEditData({ ...FeedObj, file: null, imageUrl: imageUrl });
+    setEditData({ ...FeedObj, file: null, imageUrl: FeedObj.imageUrl });
   };
   const submitEdit = async (e) => {
     e.preventDefault();
@@ -118,7 +119,7 @@ const Feed = ({ FeedObj, isOwner }) => {
           </Title>
           <PostInfo>
             <UserInfo>
-              <UserName>{userName}</UserName>
+              <UserName>{FeedObj.userName}</UserName>
               <CreatedAt>{formattedDate}</CreatedAt>
             </UserInfo>
             <Category>
@@ -167,14 +168,14 @@ const Feed = ({ FeedObj, isOwner }) => {
             <Title>{editData.title}</Title>
             {isOwner && (
               <ButtonContainer>
-                <button onClick={handleDelete}>삭제</button>
                 <button onClick={handleEdit}>수정</button>
+                <button onClick={handleDelete}>삭제</button>
               </ButtonContainer>
             )}
           </FeedHeader>
           <PostInfo>
             <UserInfo>
-              <UserName>{userName}</UserName>
+              <UserName>{FeedObj.userName}</UserName>
               <CreatedAt>{formattedDate}</CreatedAt>
             </UserInfo>
             <Category>카테고리: {editData.category}</Category>

@@ -31,7 +31,7 @@ const FeedDetail = () => {
   return (
     <div>
       <Header />
-      {post && <Feed FeedObj={post} isOwner={post.createorId === user.uid} />}
+      {post && <Feed FeedObj={post} isOwner={post.authorId === user.uid} />}
     </div>
   );
 };

@@ -4,7 +4,7 @@ import { collection, addDoc } from "firebase/firestore";
 import { useDispatch, useSelector } from "react-redux";
 import { addPost } from "../../redux/modules/actions";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
-import { storage, auth, db } from "../../assets/fierbase";
+import { storage, db } from "../../assets/fierbase";
 import Header from "../layout/Header";
 function WritePost() {
   //데이터 추가
@@ -13,8 +13,9 @@ function WritePost() {
   const [content, setContent] = useState("");
   const [selectedFile, setSelectedFile] = useState(null);
   const dispatch = useDispatch();
-
   const user = useSelector((state) => state.user.currentUser);
+  const posts = useSelector((state) => state.post); // post 리듀서의 상태 가져오기
+  console.log(posts); // 콘솔에 상태 출력
 
   const clickClearImage = () => {
     setSelectedFile(null);
@@ -27,21 +28,25 @@ function WritePost() {
     }
     //template literal로 회원정보 uid경로로 저장하기
     //ref함수를 사용하여 스토리지의 경로를 지정하여 업로드. uploadBytes는 프로미스 반환하지 않으니까 then으로 완료시 처리로직 정의
-    const imageRef = ref(storage, `${user.uid}/${selectedFile}`);
+    const imageRef = ref(storage, `${user.uid}/${selectedFile.name}`);
 
     await uploadBytes(imageRef, selectedFile);
     const imageUrl = await getDownloadURL(imageRef);
-    const newPost = {
+    const newPostData = {
       category,
       title,
       content,
       userName: user.displayName,
       createdAt: Date.now(),
-      createorId: user.uid,
+      authorId: user.uid,
       imageUrl,
     };
     try {
-      await addDoc(collection(db, "books"), newPost);
+      const docRef = await addDoc(collection(db, "books"), newPostData);
+      const newPost = {
+        ...newPostData,
+        id: docRef.id,
+      };
       dispatch(addPost(newPost));
       setTitle("");
       setContent("");
