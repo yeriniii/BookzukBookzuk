@@ -104,9 +104,9 @@ const LogoImage = styled.div`
   display: flex;
   justify-content: center;
   padding: 50px;
-  margin-left: 70px;
+  margin-left: -10px;
   & img {
-    width: 300px;
+    width: 450px;
     height: 300px;
     margin-top: 40px;
   }
