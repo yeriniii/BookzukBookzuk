@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import { db } from "../assets/fierbase";
 import Feed from "../components/Feed";
 import { useParams } from "react-router-dom";
+import Header from "../components/layout/Header";
 
 const FeedDetail = () => {
   const { id } = useParams();
@@ -29,7 +30,8 @@ const FeedDetail = () => {
 
   return (
     <div>
-      {post && <Feed FeedObj={post} isOwner={post.createorId === user.uid} />}
+      <Header />
+      {post && <Feed FeedObj={post} isOwner={post.authorId === user.uid} />}
     </div>
   );
 };
