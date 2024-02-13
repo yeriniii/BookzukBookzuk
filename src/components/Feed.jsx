@@ -16,7 +16,8 @@ import { storage } from "../assets/fierbase";
 import { updateDoc } from "firebase/firestore";
 const Feed = ({ FeedObj, isOwner }) => {
   const { id } = useParams();
-  const { posts } = useSelector((state) => state.post);
+  const { posts } = useSelector((state) => state.post); // Redux 스토어의 상태에서 포스트 배열을 가져옴
+  const selectedPost = posts.find((post) => post.id === id);
   const [editing, setEditing] = useState(false); //edit모드 확인
   const [editData, setEditData] = useState({
     ...FeedObj,
@@ -63,7 +64,7 @@ const Feed = ({ FeedObj, isOwner }) => {
   };
   const submitEdit = async (e) => {
     e.preventDefault();
-    const { title, content, category, imageUrl } = editData;
+    const { id, title, content, category, imageUrl } = editData;
     if (!title || !content) {
       alert("제목과 내용은 필수 입력 항목입니다.");
       return;
@@ -80,6 +81,7 @@ const Feed = ({ FeedObj, isOwner }) => {
     try {
       const postRef = doc(db, "books", id);
       let editPost = {
+        id,
         title,
         category,
         content,
@@ -165,7 +167,7 @@ const Feed = ({ FeedObj, isOwner }) => {
       ) : (
         <>
           <FeedHeader>
-            <Title>{editData.title}</Title>
+            <Title>{selectedPost.title}</Title>
             {isOwner && (
               <ButtonContainer>
                 <button onClick={handleEdit}>수정</button>
@@ -176,14 +178,14 @@ const Feed = ({ FeedObj, isOwner }) => {
           <PostInfo>
             <UserInfo>
               <UserName>{FeedObj.userName}</UserName>
-              <CreatedAt>{formattedDate}</CreatedAt>
+              <CreatedAt>{selectedPost.formattedDate}</CreatedAt>
             </UserInfo>
-            <Category>카테고리: {editData.category}</Category>
+            <Category>카테고리: {selectedPost.category}</Category>
           </PostInfo>
           <Image>
-            <img src={editData.imageUrl} alt="이미지" />
+            <img src={selectedPost.imageUrl} alt="이미지" />
           </Image>
-          <Content>{editData.content}</Content>
+          <Content>{selectedPost.content}</Content>
         </>
       )}
     </FeedContainer>

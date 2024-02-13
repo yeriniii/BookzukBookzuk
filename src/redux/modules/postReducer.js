@@ -35,7 +35,7 @@ const postReducer = (state = initialState, action) => {
     case actionTypes.SET_USER_POSTS:
       return {
         ...state,
-        posts: [...state.posts, action.payload],
+        posts: action.payload,
       };
     default:
       return state;
