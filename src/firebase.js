@@ -5,13 +5,15 @@ import { getAuth } from "firebase/auth";
 // https://firebase.google.com/docs/web/setup#available-libraries
 
 // Your web app's Firebase configuration
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  apiKey: import.meta.env.REACT_APP_FB_API_KEY,
-  authDomain: import.meta.env.REACT_APP_FB_AUTH_DOMAIN,
-  projectId: import.meta.env.REACT_APP_PROJECT_ID,
-  storageBucket: import.meta.env.REACT_APP_STORAGE_BUCKET,
-  messagingSenderId: import.meta.env.REACT_APP_MESSAGING_SENDER_ID,
-  appId: import.meta.env.REACT_APP_APP_ID,
+  apiKey: "AIzaSyC80kR8VYDA9cf0mHusIH3Cz20Zm02XFqk",
+  authDomain: "sparta-newsfeed-bookzukbookzuk.firebaseapp.com",
+  projectId: "sparta-newsfeed-bookzukbookzuk",
+  storageBucket: "sparta-newsfeed-bookzukbookzuk.appspot.com",
+  messagingSenderId: "244712519556",
+  appId: "1:244712519556:web:b5e13d7f50b2906cddcfd1",
+  measurementId: "G-9XGSXYQZ70",
 };
 
 // Initialize Firebase
