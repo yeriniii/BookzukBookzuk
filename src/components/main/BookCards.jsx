@@ -5,7 +5,7 @@ import {
   BookCardBox,
   BookImg,
   BookTitle,
-  ReviewContents,
+  Contents,
   UserName,
 } from "./MainPageStyled";
 
@@ -21,7 +21,11 @@ const BookCards = ({ list }) => {
             <img src={Logo} />
           </BookImg>
           <BookTitle>{list.책이름}</BookTitle>
-          <ReviewContents>{list.책내용}</ReviewContents>
+          {list.글종류 === "중고거래" ? (
+            <Contents>{list.가격}원</Contents>
+          ) : (
+            <Contents>{list.책내용}</Contents>
+          )}
         </BookCardBox>
         <UserName>{list.닉네임}</UserName>
       </BookCard>

@@ -60,7 +60,7 @@ export const BookTitle = styled.p`
   text-overflow: ellipsis;
 `;
 
-export const ReviewContents = styled.p`
+export const Contents = styled.p`
   max-width: 150px;
   font-size: 18px;
   white-space: nowrap;
