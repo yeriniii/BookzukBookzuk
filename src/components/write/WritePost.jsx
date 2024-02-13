@@ -1,11 +1,11 @@
 import styled from "styled-components";
-import { db } from "../../firebase";
 import { useState } from "react";
 import { collection, addDoc } from "firebase/firestore";
 import { useDispatch } from "react-redux";
 import { addPost } from "../../redux/modules/actions";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
-import { storage, auth } from "../../firebase";
+import { storage, auth, db } from "../../assets/fierbase";
+import Header from "../layout/Header";
 
 function WritePost() {
   //데이터 추가
@@ -51,59 +51,62 @@ function WritePost() {
   };
 
   return (
-    <Container>
-      <FormContent>
-        <Title>새 글 작성</Title>
-        <Form onSubmit={handleSubmit}>
-          <FormGroup>
-            <Label>이미지 등록</Label>
-            {selectedFile ? (
-              <ImgWrapper>
-                <img
-                  src={URL.createObjectURL(selectedFile)}
-                  width="300px"
-                  height="300px"
-                  alt="img"
+    <>
+      <Header />
+      <Container>
+        <FormContent>
+          <Title>새 글 작성</Title>
+          <Form onSubmit={handleSubmit}>
+            <FormGroup>
+              <Label>이미지 등록</Label>
+              {selectedFile ? (
+                <ImgWrapper>
+                  <img
+                    src={URL.createObjectURL(selectedFile)}
+                    width="300px"
+                    height="300px"
+                    alt="img"
+                  />
+                  <button onClick={clickClearImage}>삭제</button>
+                </ImgWrapper>
+              ) : (
+                <Input
+                  type="file"
+                  onChange={(e) => setSelectedFile(e.target.files[0])}
                 />
-                <button onClick={clickClearImage}>삭제</button>
-              </ImgWrapper>
-            ) : (
+              )}
+              <Label>카테고리 선택</Label>
+              <Select
+                value={category}
+                onChange={(e) => setCategory(e.target.value)}
+              >
+                <option>리뷰</option>
+                <option>추천</option>
+                <option>중고거래</option>
+              </Select>
+              <Label>제목</Label>
               <Input
-                type="file"
-                onChange={(e) => setSelectedFile(e.target.files[0])}
+                placeholder="제목을 입력해주세요"
+                type="text"
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
               />
-            )}
-            <Label>카테고리 선택</Label>
-            <Select
-              value={category}
-              onChange={(e) => setCategory(e.target.value)}
-            >
-              <option>리뷰</option>
-              <option>추천</option>
-              <option>중고거래</option>
-            </Select>
-            <Label>제목</Label>
-            <Input
-              placeholder="제목을 입력해주세요"
-              type="text"
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
-            />
-            <Label>내용</Label>
-            <Textarea
-              placeholder="내용을 입력해주세요"
-              rows="20"
-              value={content}
-              onChange={(e) => setContent(e.target.value)}
-            />
-          </FormGroup>
-          <BtnWrapper>
-            <SubmitButton type="submit">등록</SubmitButton>
-            <SubmitButton>취소</SubmitButton>
-          </BtnWrapper>
-        </Form>
-      </FormContent>
-    </Container>
+              <Label>내용</Label>
+              <Textarea
+                placeholder="내용을 입력해주세요"
+                rows="20"
+                value={content}
+                onChange={(e) => setContent(e.target.value)}
+              />
+            </FormGroup>
+            <BtnWrapper>
+              <SubmitButton type="submit">등록</SubmitButton>
+              <SubmitButton>취소</SubmitButton>
+            </BtnWrapper>
+          </Form>
+        </FormContent>
+      </Container>
+    </>
   );
 }
 const Container = styled.div`

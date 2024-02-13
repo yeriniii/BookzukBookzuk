@@ -2,7 +2,7 @@ import styled from "styled-components";
 import Logo from "../assets/bookzuk-logo.png";
 import { useState } from "react";
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../firebase";
+import { auth } from "../assets/fierbase";
 import { useNavigate } from "react-router-dom";
 function CreateAccount() {
   const navigate = useNavigate();

@@ -2,7 +2,7 @@ import Router from "./shared/Router";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { setUser, clearUser } from "../src/redux/modules/actions";
-import { auth } from "./firebase";
+import { auth } from "./assets/fierbase";
 import { onAuthStateChanged } from "firebase/auth";
 
 const App = () => {
