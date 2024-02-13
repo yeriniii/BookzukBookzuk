@@ -1,5 +1,5 @@
 import { collection, getDocs, query } from "firebase/firestore";
-import { db } from "../../../../assets/fierbase";
+import { db } from "../../assets/fierbase";
 
 const q = query(collection(db, "bookReviews"));
 const querySnapShot = await getDocs(q);

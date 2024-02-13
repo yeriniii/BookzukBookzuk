@@ -1,8 +1,15 @@
-import { createStore } from "redux";
-import { combineReducers } from "redux";
-
+import { createStore, combineReducers } from "redux";
 import { devToolsEnhancer } from "redux-devtools-extension";
-const rootReducer = combineReducers({});
+import userReducer from "../modules/userReducer";
+import postReducer from "../modules/postReducer";
+import list from "../modules/listReducer";
+
+const rootReducer = combineReducers({
+  user: userReducer,
+  post: postReducer,
+  list,
+});
+
 const store = createStore(rootReducer, devToolsEnhancer());
 
 export default store;
