@@ -158,7 +158,7 @@ const Feed = ({ FeedObj, isOwner }) => {
             />
           </Content>
           <ButtonContainer>
-            <button onClick={submitEdit}>수정등록</button>
+            <button onClick={submitEdit}>수정완료</button>
             <button onClick={handleCancelEdit}>취소</button>
           </ButtonContainer>
         </EditForm>
