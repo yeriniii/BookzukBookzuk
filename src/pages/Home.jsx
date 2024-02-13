@@ -1,5 +1,7 @@
+import Login from "../components/Login";
+
 function Home() {
-  return <></>;
+  return <Login />;
 }
 
 export default Home;

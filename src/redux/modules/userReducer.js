@@ -21,11 +21,6 @@ const userReducer = (state = initialState, action) => {
                 ...state,
                 profile: action.payload
             }
-        case actionTypes.SET_USER_POSTS:
-            return {
-                ...state,
-                posts: action.payload
-            }
         default:
             return state;
     }

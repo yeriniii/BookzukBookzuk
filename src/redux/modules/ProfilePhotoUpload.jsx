@@ -1,7 +1,11 @@
 import { useState } from "react";
 import { storage, db, auth } from "../../firebase";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
-import { doc, setDoc } from "firebase/firestore";
+import { updateProfile } from "firebase/auth";
+import {
+  ProfileButtonStyle,
+  ProfileInputStyle,
+} from "../../styles/MypageStyled";
 
 function ProfilePhotoUpload({ onUploadComplete }) {
   const [selectedFile, setSelectedFile] = useState(null);
@@ -22,10 +26,9 @@ function ProfilePhotoUpload({ onUploadComplete }) {
     const imageUrl = await getDownloadURL(storageRef);
 
     // Firestore에 프로필 정보 업데이트
-    const userDocRef = doc(db, "users", user.uid);
 
     try {
-      await setDoc(userDocRef, { photoURL: imageUrl }, { merge: true });
+      await updateProfile(user, { photoURL: imageUrl });
       alert("프로필 사진이 업데이트되었습니다.");
       setSelectedFile(null);
       onUploadComplete(imageUrl);
@@ -35,10 +38,19 @@ function ProfilePhotoUpload({ onUploadComplete }) {
   };
 
   return (
-    <div>
-      <input type="file" onChange={handleFileChange} />
-      <button onClick={handleUpload}>프로필 등록/수정</button>
-    </div>
+    <>
+      <ProfileInputStyle htmlFor="input-file">사진 찾아보기</ProfileInputStyle>
+      <input
+        id="input-file"
+        type="file"
+        onChange={handleFileChange}
+        style={{ display: "none" }}
+      />
+      <br />
+      <ProfileButtonStyle onClick={handleUpload}>
+        프로필 등록
+      </ProfileButtonStyle>
+    </>
   );
 }
 

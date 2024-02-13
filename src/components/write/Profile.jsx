@@ -4,6 +4,14 @@ import { setUserProfile, setUserPosts } from "../../redux/modules/actions";
 import { auth, db } from "../../firebase";
 import ProfilePhotoUpload from "../../redux/modules/ProfilePhotoUpload";
 import { collection, getDocs, query, where } from "firebase/firestore";
+import { ProfileIcon } from "../../assets/ProfileIcon";
+import {
+  ProfileBodyStyle,
+  ProfileGroupStyle,
+  ProfileImgStyle,
+  ProfileUserInfoSytle,
+  ProfileNicknameStyle,
+} from "../../styles/MypageStyled";
 
 const Profile = () => {
   const { profile } = useSelector((state) => state.user);
@@ -25,7 +33,6 @@ const Profile = () => {
             email: user.email,
           })
         );
-
         // 사용자의 게시글 로딩
         try {
           const q = query(
@@ -33,20 +40,18 @@ const Profile = () => {
             where("authorId", "==", user.uid)
           );
           const querySnapshot = await getDocs(q);
-          const userPosts = [];
+          const posts = [];
           querySnapshot.forEach((doc) => {
-            userPosts.push({ id: doc.id, ...doc.data() });
+            posts.push({ id: doc.id, ...doc.data() });
           });
-          dispatch(setUserPosts(userPosts));
+          dispatch(setUserPosts(posts));
         } catch (error) {
           console.error("게시글 로딩 중 오류 발생:", error);
         }
       }
     };
-
     loadProfile();
   }, [user, dispatch]);
-
   const handleProfileUpdate = (imageUrl) => {
     setProfileImageUrl(imageUrl); // 업로드된 이미지 URL로 업데이트
     dispatch(
@@ -58,22 +63,29 @@ const Profile = () => {
     );
   };
 
-  console.log("프로필", profile);
-  console.log("포스트", posts);
-
   if (!profile) {
     return <div>프로필 정보를 등록해주세요!</div>;
   }
 
+  console.log(profile);
+
   return (
-    <div>
+    <ProfileBodyStyle>
       <h1>프로필</h1>
-      <div>
-        <img src={profileImageUrl || "프로필 사진"} alt="프로필 사진" />
-        <ProfilePhotoUpload onUploadComplete={handleProfileUpdate} />
-        <p>닉네임: {profile.nickname}</p>
-        <p>이메일: {profile.email}</p>
-      </div>
+      <ProfileGroupStyle>
+        <ProfileImgStyle>
+          {profileImageUrl ? (
+            <img src={profileImageUrl} alt="프로필 사진" />
+          ) : (
+            <ProfileIcon />
+          )}
+          <ProfilePhotoUpload onUploadComplete={handleProfileUpdate} />
+        </ProfileImgStyle>
+        <ProfileUserInfoSytle>
+          <ProfileNicknameStyle>{profile.nickname}</ProfileNicknameStyle>
+          <p>이메일 : {profile.email}</p>
+        </ProfileUserInfoSytle>
+      </ProfileGroupStyle>
       <div>
         <h2>내 글</h2>
         {posts.length !== 0 &&
@@ -85,7 +97,7 @@ const Profile = () => {
             </div>
           ))}
       </div>
-    </div>
+    </ProfileBodyStyle>
   );
 };
 

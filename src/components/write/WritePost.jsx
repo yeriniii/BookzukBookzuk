@@ -30,17 +30,21 @@ function WritePost() {
     const imageRef = ref(storage, `${user.uid}`);
     await uploadBytes(imageRef, selectedFile);
     const imageUrl = await getDownloadURL(imageRef);
-    const newPost = {
+    const newPostData = {
       category,
       title,
       content,
       userName: user.displayName,
       createdAt: Date.now(),
-      createorId: user.uid,
+      authorId: user.uid,
       imageUrl,
     };
     try {
-      await addDoc(collection(db, "books"), newPost);
+      const docRef = await addDoc(collection(db, "books"), newPostData);
+      const newPost = {
+        ...newPostData,
+        id: docRef.id,
+      };
       dispatch(addPost(newPost));
       setTitle("");
       setContent("");
