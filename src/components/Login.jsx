@@ -20,11 +20,14 @@ function Login() {
         loginPW
       );
       const user = userCredential.user;
-      console.log("Successfully signed in:", user);
+      console.log("로그인 완료:", user);
+      alert("로그인이 완료 되었습니다.");
+      navigate("/");
     } catch (error) {
       const errorCode = error.code;
       const errorMessage = error.message;
-      console.error("Error signing in:", errorCode, errorMessage);
+      console.error("로그인 오류:", errorCode, errorMessage);
+      alert("이메일, 비밀번호를 다시 확인해 주세요.");
     }
     setLoginID("");
     setLoginPW("");
@@ -42,9 +45,21 @@ function Login() {
       </LogoTitle>
       <LoginForm>
         <p>이메일</p>
-        <IdInput></IdInput>
+        <IdInput
+          type="email"
+          value={loginID}
+          name="loginID"
+          onChange={(e) => setLoginID(e.target.value)}
+          required
+        ></IdInput>
         <p>비밀번호</p>
-        <PwInput type="password"></PwInput>
+        <PwInput
+          type="password"
+          value={loginPW}
+          name="loginPW"
+          onChange={(e) => setLoginPW(e.target.value)}
+          required
+        ></PwInput>
       </LoginForm>
       <LoginButtonAndMembership>
         <button onClick={signIn}>로그인</button>

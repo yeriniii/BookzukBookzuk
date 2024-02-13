@@ -33,11 +33,13 @@ function CreateAccount() {
         const user = userCredential.user;
         console.log(user);
         alert("회원가입이 완료 되었습니다.");
+        navigate("/login");
       })
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
-        console.error("Error signing up:", errorCode, errorMessage);
+        console.error("회원가입 오류:", errorCode, errorMessage);
+        alert("올바르지 않은 이메일, 비밀번호 입니다.");
       });
     setUserEmail("");
     setUserPW("");
