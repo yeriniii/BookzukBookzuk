@@ -1,25 +1,34 @@
 import * as actionTypes from './actionTypes';
 
-const initialState = [];
+const initialState = {
+    posts: [],
+};
 
 const postReducer = (state = initialState, action) => {
     switch (action.type) {
         case actionTypes.ADD_POST:
-            return [action.payload, ...state];
+            return {
+                ...state,
+                posts: [...state.posts, action.payload]
+            };
         case actionTypes.REMOVE_POST:
-            return state.filter((post) => post.id !== action.payload.id);
+            return {
+                ...state,
+                posts: state.posts.filter((post) => post.id !== action.payload.id)
+            };
         case actionTypes.UPDATE_POST:
-            return state.map((post) => {
+            return state.posts.map((post) => {
                 if (post.id === action.payload.id) {
                     return {
                         ...post,
-                        content: action.payload.content
-                    }
+                        content: action.payload.content,
+                    };
                 }
-            })
+                return post;
+            });
         default:
             return state;
     }
-}
+};
 
 export default postReducer;

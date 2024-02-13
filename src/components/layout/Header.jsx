@@ -23,7 +23,6 @@ const Header = () => {
             {user ? (
               <div>
                 <button onClick={() => navigate(`/mypage`)}>마이페이지</button>
-                <button>찜 목록</button>
                 <button onClick={() => navigate(`/write`)}>새 글 작성</button>
                 <button onClick={() => navigate(`/logout`)}>로그아웃</button>
               </div>
