@@ -15,6 +15,7 @@ const firebaseConfig = {
   storageBucket: "book-review-90449.appspot.com",
   messagingSenderId: "287087590037",
   appId: "1:287087590037:web:cf253566a41845b580f99c",
+  // measurementId: "G-Q877J3SWH7"
 };
 
 // Initialize Firebase

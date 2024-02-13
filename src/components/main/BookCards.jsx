@@ -13,21 +13,22 @@ import {
 const BookCards = ({ list }) => {
   return (
     // Link 라우터 해야힘
-    <Link to={"/write"}>
+    <Link to={`/Detail/${list.id}`}>
       <BookCard>
         <BookCardBox>
           <BookImg>
             {/* 이미지도 옵션에 넣어여함 */}
-            <img src={Logo} />
+            <img src={list.imageUrl} />
           </BookImg>
-          <BookTitle>{list.책이름}</BookTitle>
+          <BookTitle>{list.title}</BookTitle>
           {list.글종류 === "중고거래" ? (
-            <Contents>{list.가격}원</Contents>
+            // 아직 금액 없음
+            <Contents>{list.id}원</Contents>
           ) : (
-            <Contents>{list.책내용}</Contents>
+            <Contents>{list.content}</Contents>
           )}
         </BookCardBox>
-        <UserName>{list.닉네임}</UserName>
+        <UserName>{list.userName}</UserName>
       </BookCard>
     </Link>
   );

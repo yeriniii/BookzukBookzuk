@@ -46,7 +46,7 @@ const MainPage = () => {
               .map((list) => <BookCards key={list.id} list={list} />)} */}
 
         {searchList.map((list) => {
-          return list.글종류 === "추천" || list.글종류 === "리뷰" ? (
+          return list.category === "추천" || list.category === "리뷰" ? (
             <BookCards key={list.id} list={list} />
           ) : null;
         })}
