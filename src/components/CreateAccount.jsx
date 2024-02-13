@@ -33,7 +33,7 @@ function CreateAccount() {
         const user = userCredential.user;
         console.log(user);
         alert("회원가입이 완료 되었습니다.");
-        navigate("/login");
+        navigate("/");
       })
       .catch((error) => {
         const errorCode = error.code;

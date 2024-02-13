@@ -22,7 +22,7 @@ function Login() {
       const user = userCredential.user;
       console.log("로그인 완료:", user);
       alert("로그인이 완료 되었습니다.");
-      navigate("/");
+      navigate("/main");
     } catch (error) {
       const errorCode = error.code;
       const errorMessage = error.message;

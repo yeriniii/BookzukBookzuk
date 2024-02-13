@@ -11,7 +11,7 @@ const Header = () => {
     <>
       <HeaderBlock>
         <HeaderWrapper>
-          <LogoImage onClick={() => navigate(`/`)}>
+          <LogoImage onClick={() => navigate(`/main`)}>
             <img src={Logo} alt="logo이미지"></img>
           </LogoImage>
           <TabBtn>
@@ -24,7 +24,7 @@ const Header = () => {
               <div>
                 <button onClick={() => navigate(`/mypage`)}>마이페이지</button>
                 <button onClick={() => navigate(`/write`)}>새 글 작성</button>
-                <button onClick={() => navigate(`/logout`)}>로그아웃</button>
+                <button onClick={() => navigate(`/`)}>로그아웃</button>
               </div>
             ) : (
               <div>
