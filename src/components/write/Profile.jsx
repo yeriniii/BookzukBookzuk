@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { setUserProfile, setUserPosts } from "../../redux/modules/actions";
-import { auth, db } from "../../firebase";
+import { auth, db } from "../../assets/fierbase";
 import ProfilePhotoUpload from "../../redux/modules/ProfilePhotoUpload";
 import { collection, getDocs, query, where } from "firebase/firestore";
+import Header from "../layout/Header";
 
 const Profile = () => {
   const { profile } = useSelector((state) => state.user);
@@ -66,26 +67,29 @@ const Profile = () => {
   }
 
   return (
-    <div>
-      <h1>프로필</h1>
+    <>
+      <Header />
       <div>
-        <img src={profileImageUrl || "프로필 사진"} alt="프로필 사진" />
-        <ProfilePhotoUpload onUploadComplete={handleProfileUpdate} />
-        <p>닉네임: {profile.nickname}</p>
-        <p>이메일: {profile.email}</p>
+        <h1>프로필</h1>
+        <div>
+          <img src={profileImageUrl || "프로필 사진"} alt="프로필 사진" />
+          <ProfilePhotoUpload onUploadComplete={handleProfileUpdate} />
+          <p>닉네임: {profile.nickname}</p>
+          <p>이메일: {profile.email}</p>
+        </div>
+        <div>
+          <h2>내 글</h2>
+          {posts.length !== 0 &&
+            posts.map((post) => (
+              <div key={post.id}>
+                <img src={post.imageUrl} alt="게시글 이미지" />
+                <h3>{post.title}</h3>
+                <p>{post.content}</p>
+              </div>
+            ))}
+        </div>
       </div>
-      <div>
-        <h2>내 글</h2>
-        {posts.length !== 0 &&
-          posts.map((post) => (
-            <div key={post.id}>
-              <img src={post.imageUrl} alt="게시글 이미지" />
-              <h3>{post.title}</h3>
-              <p>{post.content}</p>
-            </div>
-          ))}
-      </div>
-    </div>
+    </>
   );
 };
 

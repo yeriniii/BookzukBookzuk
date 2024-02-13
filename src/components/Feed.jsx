@@ -1,7 +1,7 @@
 import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteDoc, doc } from "firebase/firestore";
-import { db } from "../firebase";
+import { db } from "../assets/fierbase";
 import { getStorage } from "firebase/storage";
 import { deleteObject, ref } from "firebase/storage";
 import { removePost } from "../redux/modules/actions";

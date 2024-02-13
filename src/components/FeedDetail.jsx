@@ -1,7 +1,7 @@
 import { getDoc, doc } from "firebase/firestore";
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
-import { db } from "../firebase";
+import { db } from "../assets/fierbase";
 import Feed from "../components/Feed";
 import { useParams } from "react-router-dom";
 

@@ -3,13 +3,13 @@ import Logo from "../assets/bookzuk-logo.png";
 import { useState } from "react";
 import { setUser } from "../redux/modules/actions";
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../firebase";
 import { updateProfile } from "firebase/auth";
+import { auth } from "../assets/fierbase";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 function CreateAccount() {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+
   const [userEmail, setUserEmail] = useState("");
   const [userPW, setUserPW] = useState("");
   const [userName, setUserName] = useState("");
@@ -29,27 +29,24 @@ function CreateAccount() {
     }
   };
 
-  const signUp = async (e) => {
+  const signUp = (e) => {
     e.preventDefault();
-    try {
-      const userCredential = await createUserWithEmailAndPassword(
-        auth,
-        userEmail,
-        userPW
-      );
-      await updateProfile(userCredential.user, {
-        displayName: userName,
+    createUserWithEmailAndPassword(auth, userEmail, userPW)
+      .then((userCredential) => {
+        const user = userCredential.user;
+        console.log(user);
+        alert("회원가입이 완료 되었습니다.");
+        navigate("/login");
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.error("회원가입 오류:", errorCode, errorMessage);
+        alert("올바르지 않은 이메일, 비밀번호 입니다.");
       });
-      console.log("회원가입 완료");
-      dispatch(
-        setUser({
-          ...userCredential.user,
-          displayName: userName, // Redux 스토어에도 닉네임 정보 추가
-        })
-      );
-    } catch (error) {
-      console.error("회원가입 실패", error);
-    }
+    setUserEmail("");
+    setUserPW("");
+    setUserName("");
   };
 
   return (

@@ -31,6 +31,7 @@ function Login() {
     }
     setLoginID("");
     setLoginPW("");
+    navigate(`/main`);
   };
 
   return (
