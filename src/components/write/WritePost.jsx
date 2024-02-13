@@ -6,7 +6,6 @@ import { addPost } from "../../redux/modules/actions";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { storage, auth, db } from "../../assets/fierbase";
 import Header from "../layout/Header";
-
 function WritePost() {
   //데이터 추가
   const [category, setCategory] = useState("리뷰");
@@ -28,7 +27,6 @@ function WritePost() {
     }
     //template literal로 회원정보 uid경로로 저장하기
     //ref함수를 사용하여 스토리지의 경로를 지정하여 업로드. uploadBytes는 프로미스 반환하지 않으니까 then으로 완료시 처리로직 정의
-
     const imageRef = ref(storage, `${user.uid}/${selectedFile}`);
 
     await uploadBytes(imageRef, selectedFile);
@@ -55,8 +53,8 @@ function WritePost() {
 
   return (
     <>
-      <Header />
       <Container>
+        <Header />
         <FormContent>
           <Title>새 글 작성</Title>
           <Form onSubmit={handleSubmit}>
