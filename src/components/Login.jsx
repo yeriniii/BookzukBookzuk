@@ -22,7 +22,7 @@ function Login() {
       const user = userCredential.user;
       console.log("로그인 완료:", user);
       alert("로그인이 완료 되었습니다.");
-      navigate("/");
+      navigate("/main");
     } catch (error) {
       const errorCode = error.code;
       const errorMessage = error.message;
@@ -31,6 +31,7 @@ function Login() {
     }
     setLoginID("");
     setLoginPW("");
+    navigate(`/main`);
   };
 
   return (
@@ -40,24 +41,23 @@ function Login() {
         <img src={Logo} alt="logo이미지"></img>
       </LogoImage>
       <LogoTitle>
-        <p>북적북적</p>
-        <span>로그인</span>
+        <span>이메일과 비밀번호로 로그인이 가능합니다.</span>
       </LogoTitle>
       <LoginForm>
-        <p>이메일</p>
         <IdInput
           type="email"
           value={loginID}
           name="loginID"
           onChange={(e) => setLoginID(e.target.value)}
+          placeholder="이메일"
           required
         ></IdInput>
-        <p>비밀번호</p>
         <PwInput
           type="password"
           value={loginPW}
           name="loginPW"
           onChange={(e) => setLoginPW(e.target.value)}
+          placeholder="비밀번호"
           required
         ></PwInput>
       </LoginForm>
@@ -72,37 +72,28 @@ function Login() {
 }
 
 const Container = styled.div`
-  background-color: #00966e;
-  width: 70%;
+  max-width: 1200px;
   height: 100%;
-  margin: auto;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
 `;
 
 const LogoImage = styled.div`
   display: flex;
-  justify-content: center;
-  padding: 50px;
-  margin-left: 70px;
   & img {
-    width: 300px;
-    height: 300px;
-    margin-top: 40px;
+    max-width: 300px;
   }
 `;
 
 const LogoTitle = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-bottom: 30px;
-  margin-top: -30px;
-  & p {
-    font-size: 40px;
-    font-weight: 500;
-    margin-bottom: 20px;
-  }
+  margin: 20px 0;
   & span {
-    font-size: 25px;
+    font-size: 18px;
+    color: #969696;
   }
 `;
 
@@ -110,33 +101,43 @@ const LoginForm = styled.form`
   display: flex;
   flex-direction: column;
   width: 450px;
-  margin: auto;
-  padding: 20px;
-`;
-
-const IdInput = styled.input`
-  width: 400px;
-  padding: 5px;
-  margin: 5px 0 20px 0;
-  & p {
-    align-items: normal;
+  align-items: center;
+  gap: 15px;
+  input {
+    width: 400px;
+    height: 50px;
+    border-radius: 10px;
+    border: 1px solid #c7c7c7;
+    font-size: 16px;
+    padding-left: 20px;
+  }
+  input::placeholder {
+    color: #c7c7c7;
   }
 `;
 
-const PwInput = styled.input`
-  width: 400px;
-  padding: 5px;
-  margin-top: 5px;
-`;
+const IdInput = styled.input``;
+
+const PwInput = styled.input``;
 
 const LoginButtonAndMembership = styled.div`
+  width: 400px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 20px;
+  padding-bottom: 50px;
   & button {
-    width: 100px;
-    margin-bottom: 10px;
+    width: 400px;
+    padding: 10px 30px;
+    height: 50px;
+    border-radius: 10px;
+    border: none;
+    background-color: var(--main-color);
+    color: white;
+    font-size: 18px;
+  }
+  & p {
+    margin-top: 30px;
   }
   & span {
     cursor: pointer;

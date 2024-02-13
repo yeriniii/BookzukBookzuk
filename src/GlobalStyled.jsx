@@ -66,6 +66,10 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+a{
+	text-decoration: none;
+}
+
 :root {
 	--main-color: #00966E;
 	--sub-color-brown: #3D2721;

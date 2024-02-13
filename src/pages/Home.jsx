@@ -1,7 +1,13 @@
-import Login from "../components/Login";
+import MainPage from "../components/main/MainPage";
+import Header from "../components/layout/Header";
 
 function Home() {
-  return <Login />;
+  return (
+    <>
+      <Header />
+      <MainPage />
+    </>
+  );
 }
 
 export default Home;

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { setUserProfile, setUserPosts } from "../../redux/modules/actions";
-import { auth, db } from "../../firebase";
+import { auth, db } from "../../assets/fierbase";
 import ProfilePhotoUpload from "../../redux/modules/ProfilePhotoUpload";
 import { collection, getDocs, query, where } from "firebase/firestore";
 import { ProfileIcon } from "../../assets/ProfileIcon";
