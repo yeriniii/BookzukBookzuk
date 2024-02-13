@@ -1,17 +1,34 @@
 import styled from "styled-components";
 import Logo from "../assets/bookzuk-logo.png";
-import { useEffect } from "react";
-import { auth } from "../firebase";
-import { createUserWithEmailAndPassword } from "firebase/auth";
-// import { useState } from "react";
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 function Login() {
-  // const [loginID, setLoginID] = useState("");
-  // const [loginPW, setLoginPW] = useState("");
+  const navigate = useNavigate();
+  const auth = getAuth();
 
-  useEffect(() => {
-    createUserWithEmailAndPassword(auth, "test@gmail.com", "123456");
-  }, []);
+  const [loginID, setLoginID] = useState("");
+  const [loginPW, setLoginPW] = useState("");
+
+  const signIn = async (e) => {
+    e.preventDefault();
+    try {
+      const userCredential = await signInWithEmailAndPassword(
+        auth,
+        loginID,
+        loginPW
+      );
+      const user = userCredential.user;
+      console.log("Successfully signed in:", user);
+    } catch (error) {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      console.error("Error signing in:", errorCode, errorMessage);
+    }
+    setLoginID("");
+    setLoginPW("");
+  };
 
   return (
     <Container>
@@ -30,9 +47,9 @@ function Login() {
         <PwInput type="password"></PwInput>
       </LoginForm>
       <LoginButtonAndMembership>
-        <button>로그인</button>
+        <button onClick={signIn}>로그인</button>
         <p>
-          처음이세요? <span>회원가입</span>
+          처음이세요? <span onClick={() => navigate(`/signup`)}>회원가입</span>
         </p>
       </LoginButtonAndMembership>
     </Container>
@@ -108,6 +125,8 @@ const LoginButtonAndMembership = styled.div`
   }
   & span {
     cursor: pointer;
+    color: #0a66c2;
+    border-bottom: 1px solid #0a66c2;
   }
 `;
 

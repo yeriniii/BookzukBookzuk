@@ -1,12 +1,14 @@
 import styled from "styled-components";
 import Logo from "../assets/bookzuk-logo.png";
 import { useState } from "react";
-import { auth } from "firebase";
 import { createUserWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../firebase";
+import { useNavigate } from "react-router-dom";
 function CreateAccount() {
+  const navigate = useNavigate();
+
   const [userEmail, setUserEmail] = useState("");
   const [userPW, setUserPW] = useState("");
-  const [userPW2, setUserPW2] = useState("");
   const [userName, setUserName] = useState("");
 
   const onChangeSet = (e) => {
@@ -19,21 +21,27 @@ function CreateAccount() {
     if (name === "userPW") {
       setUserPW(value);
     }
+    if (name === "userName") {
+      setUserName(value);
+    }
   };
 
   const signUp = (e) => {
     e.preventDefault();
     createUserWithEmailAndPassword(auth, userEmail, userPW)
       .then((userCredential) => {
-        // Signed in
         const user = userCredential.user;
-        // ...
+        console.log(user);
+        alert("회원가입이 완료 되었습니다.");
       })
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
-        // ..
+        console.error("Error signing up:", errorCode, errorMessage);
       });
+    setUserEmail("");
+    setUserPW("");
+    setUserName("");
   };
 
   return (
@@ -51,7 +59,7 @@ function CreateAccount() {
         <IdInput
           type="email"
           value={userEmail}
-          name="email"
+          name="userEmail"
           onChange={onChangeSet}
           required
         ></IdInput>
@@ -59,18 +67,25 @@ function CreateAccount() {
         <IdInput
           type="password"
           value={userPW}
-          name="password"
+          name="userPW"
           onChange={onChangeSet}
           required
         ></IdInput>
-        <p>비밀번호확인</p>
-        <IdInput type="password"></IdInput>
         <p>닉네임</p>
-        <PwInput></PwInput>
+        <PwInput
+          type="text"
+          value={userName}
+          name="userName"
+          onChange={onChangeSet}
+          required
+        ></PwInput>
       </LoginForm>
       <LoginButtonAndMembership>
         <button onClick={signUp}>회원가입</button>
-        <p>이미 회원이세요? 로그인</p>
+        <p>
+          이미 회원이세요?{" "}
+          <span onClick={() => navigate(`/login`)}>로그인</span>
+        </p>
       </LoginButtonAndMembership>
     </Container>
   );
@@ -139,6 +154,11 @@ const LoginButtonAndMembership = styled.div`
   & button {
     width: 100px;
     margin-bottom: 10px;
+  }
+  & span {
+    cursor: pointer;
+    color: #0a66c2;
+    border-bottom: 1px solid #0a66c2;
   }
 `;
 
