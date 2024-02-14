@@ -41,6 +41,16 @@ export const updatePost = (payload) => {
 export const setUserPosts = (posts) => {
   return {
     type: actionTypes.SET_USER_POSTS,
-    payload: posts,
-  };
-};
+    payload: posts
+  }
+}
+
+// 모달 관련 정의
+export const showModal = (message) => ({
+  type: actionTypes.SHOW_MODAL,
+  payload: message
+});
+
+export const hideModal = () => ({
+  type: actionTypes.HIDE_MODAL
+});
