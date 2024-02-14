@@ -21,6 +21,7 @@ const Feed = () => {
   const { id } = useParams();
   const { isVisible, message, onCancel, onConfirm, showCancelButton } =
     useSelector((state) => state.modal);
+
   const user = useSelector((state) => state.user.currentUser);
   const posts = useSelector((state) => state.list);
   const selectedPost = posts.find((post) => post.id === id);
@@ -37,13 +38,19 @@ const Feed = () => {
   const FeedRef = doc(db, "books", id);
 
   const handleDelete = async () => {
-    const ok = window.confirm("정말로 삭제하시겠습니까?");
-    if (ok) {
-      await deleteDoc(FeedRef);
-      await deleteObject(ref(storageService, selectedPost.imageUrl));
-      navigate(`/main`);
-      dispatch(removePost(selectedPost.id));
-    }
+    dispatch(
+      showModal({
+        message: "정말로 삭제하시겠습니까?",
+        onConfirm: async () => {
+          await deleteDoc(FeedRef);
+          await deleteObject(ref(storageService, selectedPost.imageUrl));
+          navigate(`/main`);
+          dispatch(removePost(selectedPost.id));
+          dispatch(hideModal());
+        },
+        showCancelButton: true, // 확인 및 취소 버튼을 표시하도록 설정
+      })
+    );
   };
   const handleImageChange = (e) => {
     const file = e.target.files[0];
@@ -77,7 +84,16 @@ const Feed = () => {
     e.preventDefault();
     const { id, title, content, category, imageUrl } = editData;
     if (!title || !content) {
-      dispatch(showModal({ message: "제목과 내용은 필수 입력 항목입니다!" }));
+      dispatch(
+        showModal({
+          message: "제목과 내용은 필수 입력 항목입니다!",
+          showCancelButton: false,
+          onConfirm: () => {
+            console.log("확인눌림");
+            dispatch(hideModal());
+          },
+        })
+      );
       return;
     }
     if (
@@ -86,7 +102,16 @@ const Feed = () => {
       category === selectedPost.category &&
       imageUrl === selectedPost.imageUrl
     ) {
-      dispatch(showModal({ message: "수정사항이 없습니다!" }));
+      dispatch(
+        showModal({
+          message: "수정사항이 없습니다!",
+          showCancelButton: false,
+          onConfirm: () => {
+            console.log("확인눌림");
+            dispatch(hideModal());
+          },
+        })
+      );
       return;
     }
     try {
@@ -110,7 +135,15 @@ const Feed = () => {
       }
       await updateDoc(postRef, editPost);
       dispatch(updatePost(editPost));
-      dispatch(showModal({ message: "수정되었습니다!" }));
+      dispatch(
+        showModal({
+          message: "수정되었습니다!",
+          showCancelButton: false,
+          onConfirm: () => {
+            dispatch(hideModal());
+          },
+        })
+      );
       navigate(`/Detail/${id}`);
       setEditing(false);
     } catch (error) {
@@ -208,10 +241,8 @@ const Feed = () => {
           isVisible={isVisible}
           message={message}
           onCancel={() => dispatch(hideModal())}
-          onConfirm={() => {
-            dispatch(hideModal());
-          }}
-          showCancelButton={false}
+          onConfirm={onConfirm}
+          showCancelButton={showCancelButton}
         />
       )}
     </FeedContainer>
