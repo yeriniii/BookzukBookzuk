@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
 import { deleteDoc, doc } from "firebase/firestore";
 import { db } from "../assets/fierbase";
-
+import { v4 as uuidv4 } from "uuid";
 import {
   deleteObject,
   ref,
@@ -95,7 +95,11 @@ const Feed = () => {
         createdAt: Date.now(),
       };
       if (editData.file) {
-        const imageRef = ref(storage, `${id}/${editData.file.name}`);
+        const uuid = uuidv4();
+        const imageRef = ref(
+          storage,
+          `${user.uid}/${uuid}/${editData.file.name}`
+        );
         await uploadBytes(imageRef, editData.file);
         const newImageUrl = await getDownloadURL(imageRef);
         editPost = { ...editPost, imageUrl: newImageUrl };
@@ -185,7 +189,7 @@ const Feed = () => {
           <PostInfo>
             <UserInfo>
               <UserName>{selectedPost.userName}</UserName>
-              <CreatedAt>{selectedPost.formattedDate}</CreatedAt>
+              <CreatedAt>{formattedDate}</CreatedAt>
             </UserInfo>
             <Category>카테고리: {selectedPost.category}</Category>
           </PostInfo>

@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+
 export const ProfileBodyStyle = styled.div`
   max-width: 1200px;
   margin: 0 auto;
@@ -66,6 +66,7 @@ export const ProfileButtonStyle = styled.button`
 
 export const ProfilePostsStyle = styled.div`
   margin-top: 50px;
+  flex-wrap: wrap;
   h2 {
     font-size: 30px;
     font-weight: 600;
@@ -85,18 +86,25 @@ export const ProfilePostCardStyle = styled.div`
   flex-direction: column;
   align-items: center;
   gap: 10px;
+  width: 200px;
+  min-height: 250px;
   border: 1px solid var(--grey-color);
   border-radius: 10px;
   padding: 20px;
+
   img {
     width: 200px;
     height: 200px;
   }
   h3 {
+    padding: 10px;
+    font-weight: bold;
     font-size: 24px;
     margin-top: 10px;
   }
   p {
+    padding: 10px;
+    margin-top: 15px;
     font-size: 16px;
   }
 `;

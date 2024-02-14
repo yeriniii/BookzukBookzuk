@@ -62,7 +62,7 @@ function CreateAccount() {
     setUserEmail("");
     setUserPW("");
     setUserName("");
-    navigate(`/main`);
+    navigate(`/login`);
   };
 
   return (
