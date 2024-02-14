@@ -105,14 +105,18 @@ const TabBtn = styled.div`
   height: 70%;
 `;
 const SelectedButtons = styled.button`
-  border: 1px solid green;
+  border: none;
   border-radius: 5px;
-  background-color: ${(props) => (props.selected ? "yellow" : "transparent")};
+  background-color: ${(props) => (props.selected ? "#00966e" : "transparent")};
+  color: ${(props) => (props.selected ? "white" : "black")};
   cursor: pointer;
   font-size: 1.2rem;
   width: 130px;
+  transition: transform 0.1s ease-in-out;
   &:hover {
-    background-color: yellow;
+    background-color: #00966e;
+    color: white;
+    transform: scale(1.05);
   }
 `;
 const ActionBtn = styled.div`
