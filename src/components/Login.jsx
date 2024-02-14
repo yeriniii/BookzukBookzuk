@@ -31,14 +31,10 @@ function Login() {
         loginPW
       );
       const user = userCredential.user;
-      console.log("로그인 완료:", user);
       dispatch(setUser(user));
       alert("로그인이 완료 되었습니다.");
       navigate("/main");
     } catch (error) {
-      const errorCode = error.code;
-      const errorMessage = error.message;
-      console.error("로그인 오류:", errorCode, errorMessage);
       alert("이메일, 비밀번호를 다시 확인해 주세요.");
     }
     setLoginID("");
