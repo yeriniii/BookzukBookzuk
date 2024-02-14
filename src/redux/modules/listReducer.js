@@ -4,9 +4,7 @@ import * as actionTypes from "./actionTypes";
 
 const q = query(collection(db, "books"));
 const querySnapShot = await getDocs(q);
-
 const initialCreatedLists = [];
-
 querySnapShot.forEach((doc) => {
   const data = {
     id: doc.id,
