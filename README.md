@@ -1,6 +1,6 @@
 # 프로젝트이름
 
-- 주소 : (배포사이트주소)
+- 주소 : https://bookzuk-bookzuk-y9nb.vercel.app/
 
 <br/>
 
