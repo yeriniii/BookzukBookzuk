@@ -42,9 +42,6 @@ function Login() {
         })
       );
     } catch (error) {
-<<<<<<< HEAD
-      alert("이메일, 비밀번호를 다시 확인해 주세요.");
-=======
       const errorCode = error.code;
       const errorMessage = error.message;
       console.error("로그인 오류:", errorCode, errorMessage);
@@ -54,7 +51,6 @@ function Login() {
           message: "이메일, 비밀번호를 다시 확인해 주세요.",
         })
       );
->>>>>>> 86b0c353c8df37f720b24541a9455546e0a4ff89
     }
     setLoginID("");
     setLoginPW("");
