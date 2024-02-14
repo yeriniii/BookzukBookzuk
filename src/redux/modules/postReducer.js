@@ -6,11 +6,6 @@ const initialState = {
 
 const postReducer = (state = initialState, action) => {
   switch (action.type) {
-    case actionTypes.ADD_POST:
-      return {
-        ...state,
-        posts: [...state.posts, action.payload],
-      };
     case actionTypes.REMOVE_POST:
       return {
         ...state,
