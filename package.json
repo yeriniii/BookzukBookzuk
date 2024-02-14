@@ -18,6 +18,7 @@
     "react-router-dom": "^6.22.0",
     "redux": "^5.0.1",
     "redux-devtools-extension": "^2.13.9",
+    "serve": "^14.2.1",
     "styled-components": "^6.1.8",
     "uuid": "^9.0.1",
     "vite-plugin-pwa": "^0.18.1"
