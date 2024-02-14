@@ -83,8 +83,10 @@ const Header = () => {
 };
 
 const HeaderBlock = styled.div`
-  position: fixed;
+  position: sticky;
+  top: 0;
   width: 100%;
+  z-index: 330px;
   background-color: #f3eff2;
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.08);
 `;
@@ -115,7 +117,7 @@ const TabBtn = styled.div`
 `;
 const SelectedButtons = styled.button`
   border: none;
-  border-radius: 5px;
+  border-radius: 50px;
   background-color: ${(props) => (props.selected ? "#00966e" : "transparent")};
   color: ${(props) => (props.selected ? "white" : "black")};
   cursor: pointer;
@@ -139,6 +141,6 @@ const ActionBtn = styled.div`
   }
 `;
 const Spacer = styled.div`
-  height: 8rem;
+  height: 2rem;
 `;
 export default Header;
