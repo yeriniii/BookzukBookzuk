@@ -11,10 +11,13 @@ import {
   PwInput,
   LoginButtonAndMembership,
 } from "../styles/LoginStyled";
+import { useDispatch } from "react-redux";
+import { setUser } from "../redux/modules/actions";
 
 function Login() {
   const navigate = useNavigate();
   const auth = getAuth();
+  const dispatch = useDispatch();
 
   const [loginID, setLoginID] = useState("");
   const [loginPW, setLoginPW] = useState("");
@@ -29,6 +32,7 @@ function Login() {
       );
       const user = userCredential.user;
       console.log("로그인 완료:", user);
+      dispatch(setUser(user));
       alert("로그인이 완료 되었습니다.");
       navigate("/main");
     } catch (error) {
