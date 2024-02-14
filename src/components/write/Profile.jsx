@@ -11,6 +11,9 @@ import {
   ProfileImgStyle,
   ProfileUserInfoSytle,
   ProfileNicknameStyle,
+  ProfilePostsStyle,
+  ProfilePostCardStyle,
+  ProfilePostCardsStyle,
 } from "../../styles/MypageStyled";
 
 const Profile = () => {
@@ -86,17 +89,19 @@ const Profile = () => {
           <p>이메일 : {profile.email}</p>
         </ProfileUserInfoSytle>
       </ProfileGroupStyle>
-      <div>
+      <ProfilePostsStyle>
         <h2>내 글</h2>
-        {posts.length !== 0 &&
-          posts.map((post) => (
-            <div key={post.id}>
-              <img src={post.imageUrl} alt="게시글 이미지" />
-              <h3>{post.title}</h3>
-              <p>{post.content}</p>
-            </div>
-          ))}
-      </div>
+        <ProfilePostCardsStyle>
+          {posts.length !== 0 &&
+            posts.map((post) => (
+              <ProfilePostCardStyle key={post.id}>
+                <img src={post.imageUrl} alt="게시글 이미지" />
+                <h3>{post.title}</h3>
+                <p>{post.content}</p>
+              </ProfilePostCardStyle>
+            ))}
+        </ProfilePostCardsStyle>
+      </ProfilePostsStyle>
     </ProfileBodyStyle>
   );
 };
