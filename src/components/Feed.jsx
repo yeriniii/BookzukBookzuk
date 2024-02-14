@@ -4,6 +4,8 @@ import { useState } from "react";
 import { deleteDoc, doc } from "firebase/firestore";
 import { db } from "../assets/fierbase";
 import { v4 as uuidv4 } from "uuid";
+import { showModal, hideModal } from "../redux/modules/actions";
+import ValidationModal from "../components/layout/ValidationModal";
 import {
   deleteObject,
   ref,
@@ -17,6 +19,8 @@ import { storage } from "../assets/fierbase";
 import { updateDoc } from "firebase/firestore";
 const Feed = () => {
   const { id } = useParams();
+  const { isVisible, message, onCancel, onConfirm, showCancelButton } =
+    useSelector((state) => state.modal);
   const user = useSelector((state) => state.user.currentUser);
   const posts = useSelector((state) => state.list);
   const selectedPost = posts.find((post) => post.id === id);
@@ -73,7 +77,7 @@ const Feed = () => {
     e.preventDefault();
     const { id, title, content, category, imageUrl } = editData;
     if (!title || !content) {
-      alert("제목과 내용은 필수 입력 항목입니다.");
+      dispatch(showModal({ message: "제목과 내용은 필수 입력 항목입니다!" }));
       return;
     }
     if (
@@ -82,7 +86,7 @@ const Feed = () => {
       category === selectedPost.category &&
       imageUrl === selectedPost.imageUrl
     ) {
-      alert("수정사항이 없습니다");
+      dispatch(showModal({ message: "수정사항이 없습니다!" }));
       return;
     }
     try {
@@ -106,7 +110,7 @@ const Feed = () => {
       }
       await updateDoc(postRef, editPost);
       dispatch(updatePost(editPost));
-
+      dispatch(showModal({ message: "수정되었습니다!" }));
       navigate(`/Detail/${id}`);
       setEditing(false);
     } catch (error) {
@@ -199,6 +203,17 @@ const Feed = () => {
           <Content>{selectedPost.content}</Content>
         </>
       )}
+      {isVisible && (
+        <ValidationModal
+          isVisible={isVisible}
+          message={message}
+          onCancel={() => dispatch(hideModal())}
+          onConfirm={() => {
+            dispatch(hideModal());
+          }}
+          showCancelButton={false}
+        />
+      )}
     </FeedContainer>
   );
 };
@@ -226,6 +241,7 @@ const Content = styled.div`
   margin-bottom: 20px;
   font-size: 22px;
   border-bottom: 1px solid #ccc;
+  line-height: 1.5;
 `;
 const PostInfo = styled.div`
   margin-top: 25px;
