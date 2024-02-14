@@ -2,20 +2,30 @@ import { collection, getDocs, query } from "firebase/firestore";
 import { db } from "../../assets/fierbase";
 import * as actionTypes from "./actionTypes";
 
+<<<<<<< HEAD
 const q = query(collection(db, "books"));
 const querySnapShot = await getDocs(q);
+=======
+const fetchInitialData = async () => {
+  const q = query(collection(db, "books"));
+  const querySnapShot = await getDocs(q);
+  const initialCreatedLists = [];
+  querySnapShot.forEach((doc) => {
+    const data = {
+      id: doc.id,
+      ...doc.data(),
+    };
+    initialCreatedLists.push(data);
+  });
+  return initialCreatedLists;
+};
+>>>>>>> 89c5f8e99f18afffeab186434b4d84766662beff
 
-const initialCreatedLists = [];
+const initialState = [];
 
-querySnapShot.forEach((doc) => {
-  const data = {
-    id: doc.id,
-    ...doc.data(),
-  };
-  initialCreatedLists.push(data);
+fetchInitialData().then((initialData) => {
+  initialState.push(...initialData);
 });
-
-const initialState = [...initialCreatedLists];
 
 const list = (state = initialState, action) => {
   switch (action.type) {
