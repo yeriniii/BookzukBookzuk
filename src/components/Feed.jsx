@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
 import { deleteDoc, doc } from "firebase/firestore";
 import { db } from "../assets/fierbase";
+
 import {
   deleteObject,
   ref,
@@ -16,9 +17,9 @@ import { storage } from "../assets/fierbase";
 import { updateDoc } from "firebase/firestore";
 const Feed = ({ FeedObj, isOwner }) => {
   const { id } = useParams();
-  const posts = useSelector((state) => state.post.allPosts); // Redux 스토어의 상태에서 포스트 배열을 가져옴
-  console.log(posts);
-  const selectedPost = posts.find((post) => post.id === id);
+  const lists = useSelector((state) => state.list); // Redux 스토어의 상태에서 포스트 배열을 가져옴
+  console.log(lists);
+  const selectedPost = lists.find((post) => post.id === id);
   console.log(selectedPost);
   const [editing, setEditing] = useState(false); //edit모드 확인
   const [editData, setEditData] = useState({
@@ -36,8 +37,8 @@ const Feed = ({ FeedObj, isOwner }) => {
     if (ok) {
       await deleteDoc(FeedRef);
       await deleteObject(ref(storageService, FeedObj.imageUrl));
-      navigate(`/main`);
       dispatch(removePost(id));
+      navigate(`/main`, { deletedPostId: id });
     }
   };
   const handleImageChange = (e) => {

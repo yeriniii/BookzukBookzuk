@@ -46,7 +46,6 @@ function ProfilePhotoUpload({ onUploadComplete }) {
         onChange={handleFileChange}
         style={{ display: "none" }}
       />
-      <br />
       <ProfileButtonStyle onClick={handleUpload}>
         프로필 등록
       </ProfileButtonStyle>

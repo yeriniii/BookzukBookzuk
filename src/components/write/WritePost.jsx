@@ -1,11 +1,25 @@
-import styled from "styled-components";
 import { useState } from "react";
 import { collection, addDoc } from "firebase/firestore";
 import { useDispatch, useSelector } from "react-redux";
 import { addPost } from "../../redux/modules/actions";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { storage, db } from "../../assets/fierbase";
-import Header from "../layout/Header";
+import {
+  Container,
+  FormContent,
+  Title,
+  Form,
+  FormGroup,
+  Label,
+  ImgWrapper,
+  Input,
+  Select,
+  Textarea,
+  BtnWrapper,
+  SubmitButton,
+} from "../../styles/WritePostStyle";
+import { useNavigate } from "react-router-dom";
+
 function WritePost() {
   //데이터 추가
   const [category, setCategory] = useState("리뷰");
@@ -13,9 +27,10 @@ function WritePost() {
   const [content, setContent] = useState("");
   const [selectedFile, setSelectedFile] = useState(null);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const user = useSelector((state) => state.user.currentUser);
-  const posts = useSelector((state) => state.post.allPosts); // post 리듀서의 상태 가져오기
-  console.log(posts); // 콘솔에 상태 출력
+
+  const posts = useSelector((state) => state.post); // post 리듀서의 상태 가져오기
 
   const clickClearImage = () => {
     setSelectedFile(null);
@@ -51,6 +66,7 @@ function WritePost() {
       setTitle("");
       setContent("");
       setSelectedFile(null);
+      navigate(`/main`);
     } catch (error) {
       console.error("게시물 추가 중 오류 발생:", error);
     }
@@ -59,7 +75,6 @@ function WritePost() {
   return (
     <>
       <Container>
-        <Header />
         <FormContent>
           <Title>새 글 작성</Title>
           <Form onSubmit={handleSubmit}>
@@ -115,86 +130,5 @@ function WritePost() {
     </>
   );
 }
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-`;
 
-const FormContent = styled.div`
-  width: 70%;
-  padding: 2rem;
-  border-radius: 8px;
-  background-color: #f3eff2;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-`;
-
-const Title = styled.h1`
-  font-size: 1.5rem;
-  font-weight: bold;
-  margin-bottom: 2rem;
-  text-align: center;
-`;
-const Form = styled.form`
-  display: flex;
-  flex-direction: column;
-`;
-const FormGroup = styled.div`
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 1.5rem;
-`;
-const ImgWrapper = styled.div`
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  align-items: center;
-  button {
-    margin-top: 5px;
-  }
-`;
-const Label = styled.label`
-  font-size: 1rem;
-  margin-bottom: 0.5rem;
-  margin-top: 10px;
-  font-weight: bold;
-`;
-
-const Input = styled.input`
-  padding: 0.5rem;
-  font-size: 1rem;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-`;
-
-const Select = styled.select`
-  width: 30%;
-  padding: 0.5rem;
-  font-size: 1rem;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-`;
-
-const Textarea = styled.textarea`
-  padding: 0.5rem;
-  font-size: 1rem;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-`;
-const BtnWrapper = styled.div`
-  display: flex;
-  flex-direction: row;
-  align-self: flex-end;
-  gap: 1rem;
-`;
-
-const SubmitButton = styled.button`
-  padding: 0.5rem 1rem;
-  background-color: #01a488;
-  color: white;
-  border: none;
-  cursor: pointer;
-  font-size: 1rem;
-  border-radius: 4px;
-`;
 export default WritePost;

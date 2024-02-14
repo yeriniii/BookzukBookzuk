@@ -1,4 +1,3 @@
-import styled from "styled-components";
 import Logo from "../assets/bookzuk-logo.png";
 import { useState } from "react";
 import { setUser } from "../redux/modules/actions";
@@ -6,7 +5,17 @@ import { createUserWithEmailAndPassword } from "firebase/auth";
 import { updateProfile } from "firebase/auth";
 import { auth } from "../assets/fierbase";
 import { useNavigate } from "react-router-dom";
+import {
+  Container,
+  LogoImage,
+  LogoTitle,
+  LoginForm,
+  IdInput,
+  PwInput,
+  LoginButtonAndMembership,
+} from "../styles/LoginStyled";
 import { useDispatch } from "react-redux";
+
 function CreateAccount() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -63,34 +72,33 @@ function CreateAccount() {
         <img src={Logo} alt="logo이미지"></img>
       </LogoImage>
       <LogoTitle>
-        <p>북적북적</p>
         <span>회원가입</span>
       </LogoTitle>
       <LoginForm>
-        <p>이메일</p>
-        <IdInput
-          type="email"
-          value={userEmail}
-          name="userEmail"
-          onChange={onChangeSet}
-          required
-        ></IdInput>
-        <p>비밀번호</p>
-        <IdInput
-          type="password"
-          value={userPW}
-          name="userPW"
-          onChange={onChangeSet}
-          required
-        ></IdInput>
-        <p>닉네임</p>
         <PwInput
           type="text"
           value={userName}
           name="userName"
           onChange={onChangeSet}
+          placeholder="닉네임"
           required
         ></PwInput>
+        <IdInput
+          type="email"
+          value={userEmail}
+          name="userEmail"
+          onChange={onChangeSet}
+          placeholder="이메일"
+          required
+        ></IdInput>
+        <IdInput
+          type="password"
+          value={userPW}
+          name="userPW"
+          onChange={onChangeSet}
+          placeholder="비밀번호"
+          required
+        ></IdInput>
       </LoginForm>
       <LoginButtonAndMembership>
         <button onClick={signUp}>회원가입</button>
@@ -102,76 +110,5 @@ function CreateAccount() {
     </Container>
   );
 }
-
-const Container = styled.div`
-  background-color: #00966e;
-  width: 70%;
-  height: 100%;
-  margin: auto;
-`;
-
-const LogoImage = styled.div`
-  display: flex;
-  justify-content: center;
-  padding: 50px;
-  margin-left: 70px;
-  & img {
-    width: 300px;
-    height: 300px;
-    margin-top: 40px;
-  }
-`;
-
-const LogoTitle = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-bottom: 30px;
-  margin-top: -30px;
-  & p {
-    font-size: 40px;
-    font-weight: 500;
-    margin-bottom: 20px;
-  }
-  & span {
-    font-size: 25px;
-  }
-`;
-
-const LoginForm = styled.form`
-  display: flex;
-  flex-direction: column;
-  width: 450px;
-  margin: auto;
-  padding: 20px;
-`;
-
-const IdInput = styled.input`
-  width: 400px;
-  padding: 5px;
-  margin: 5px 0 20px 0;
-`;
-
-const PwInput = styled.input`
-  width: 400px;
-  padding: 5px;
-  margin-top: 5px;
-`;
-
-const LoginButtonAndMembership = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 20px;
-  & button {
-    width: 100px;
-    margin-bottom: 10px;
-  }
-  & span {
-    cursor: pointer;
-    color: #0a66c2;
-    border-bottom: 1px solid #0a66c2;
-  }
-`;
 
 export default CreateAccount;
