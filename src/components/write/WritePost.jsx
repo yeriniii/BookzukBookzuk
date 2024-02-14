@@ -3,7 +3,7 @@ import { collection, addDoc } from "firebase/firestore";
 import { useDispatch, useSelector } from "react-redux";
 import { addPost } from "../../redux/modules/actions";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
-import { storage, auth, db } from "../../assets/fierbase";
+import { storage, db } from "../../assets/fierbase";
 import {
   Container,
   FormContent,
@@ -18,6 +18,7 @@ import {
   BtnWrapper,
   SubmitButton,
 } from "../../styles/WritePostStyle";
+import { useNavigate } from "react-router-dom";
 
 function WritePost() {
   //데이터 추가
@@ -26,7 +27,9 @@ function WritePost() {
   const [content, setContent] = useState("");
   const [selectedFile, setSelectedFile] = useState(null);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const user = useSelector((state) => state.user.currentUser);
+
   const posts = useSelector((state) => state.post); // post 리듀서의 상태 가져오기
 
   const clickClearImage = () => {
@@ -63,6 +66,7 @@ function WritePost() {
       setTitle("");
       setContent("");
       setSelectedFile(null);
+      navigate(`/main`);
     } catch (error) {
       console.error("게시물 추가 중 오류 발생:", error);
     }
