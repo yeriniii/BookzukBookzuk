@@ -20,6 +20,8 @@ import {
   SubmitButton,
 } from "../../styles/WritePostStyle";
 import { useNavigate } from "react-router-dom";
+import { showModal, hideModal } from "../../redux/modules/actions";
+import ValidationModal from "../layout/ValidationModal";
 
 function WritePost() {
   //데이터 추가
@@ -30,6 +32,9 @@ function WritePost() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const user = useSelector((state) => state.user.currentUser);
+  const { isVisible, message } = useSelector((state) => state.modal);
+
+  const [uploadSuccess, setuploadSuccess] = useState(false);
 
   const clickClearImage = () => {
     setSelectedFile(null);
@@ -37,7 +42,12 @@ function WritePost() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!selectedFile || !title || !content || !category) {
-      console.error("모두 입력해주세요.");
+      setuploadSuccess(false);
+      dispatch(
+        showModal({
+          message: "모든 항목을 입력해주세요.",
+        })
+      );
       return;
     }
     const id = uuidv4();
@@ -66,9 +76,19 @@ function WritePost() {
       setTitle("");
       setContent("");
       setSelectedFile(null);
-      navigate(`/main`);
+      setuploadSuccess(true);
+      dispatch(
+        showModal({
+          message: "게시글이 등록되었습니다.",
+        })
+      );
     } catch (error) {
-      console.error("게시물 추가 중 오류 발생:", error);
+      setuploadSuccess(false);
+      dispatch(
+        showModal({
+          message: "게시글 추가 중 오류가 발생했습니다. 다시 시도해주세요.",
+        })
+      );
     }
   };
 
@@ -126,6 +146,20 @@ function WritePost() {
             </BtnWrapper>
           </Form>
         </FormContent>
+        {isVisible && (
+          <ValidationModal
+            isVisible={isVisible}
+            message={message}
+            onCancel={() => dispatch(hideModal())}
+            onConfirm={() => {
+              dispatch(hideModal());
+              if (uploadSuccess) {
+                navigate(`/main`);
+              }
+            }}
+            showCancelButton={false}
+          />
+        )}
       </Container>
     </>
   );
