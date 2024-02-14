@@ -30,7 +30,7 @@ const Feed = () => {
   const storageService = getStorage();
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const FeedRef = doc(db, "books", `${id}`);
+  const FeedRef = doc(db, "books", id);
 
   const handleDelete = async () => {
     const ok = window.confirm("정말로 삭제하시겠습니까?");

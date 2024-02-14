@@ -15,7 +15,7 @@ const MainPage = () => {
 
   useEffect(() => {
     setSearchList([...lists]);
-  }, [selectedCategory]);
+  }, [selectedCategory, lists]);
 
   const searchInputChange = (event) => {
     setSearchText(event.target.value);
@@ -23,7 +23,9 @@ const MainPage = () => {
 
   const searchButton = () => {
     const filteredLists = [...lists].filter((list) =>
-      list.title.includes(searchText)
+      list.title
+        .replace(/(\s*)/g, "")
+        .includes(searchText.replace(/(\s*)/g, ""))
     );
     setSearchList(filteredLists);
     setSearchText("");
