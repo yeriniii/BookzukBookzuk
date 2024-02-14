@@ -1,5 +1,5 @@
 import styled from "styled-components";
-
+import { Link } from "react-router-dom";
 export const ProfileBodyStyle = styled.div`
   max-width: 1200px;
   margin: 0 auto;

@@ -19,6 +19,7 @@
     "redux": "^5.0.1",
     "redux-devtools-extension": "^2.13.9",
     "styled-components": "^6.1.8",
+    "uuid": "^9.0.1",
     "vite-plugin-pwa": "^0.18.1"
   },
   "devDependencies": {

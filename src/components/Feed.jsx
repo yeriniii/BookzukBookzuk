@@ -15,17 +15,17 @@ import { removePost, updatePost } from "../redux/modules/actions";
 import styled from "styled-components";
 import { storage } from "../assets/fierbase";
 import { updateDoc } from "firebase/firestore";
-const Feed = ({ FeedObj, isOwner }) => {
+const Feed = () => {
   const { id } = useParams();
-  const lists = useSelector((state) => state.list); // Redux 스토어의 상태에서 포스트 배열을 가져옴
-  console.log(lists);
-  const selectedPost = lists.find((post) => post.id === id);
-  console.log(selectedPost);
+  const user = useSelector((state) => state.user.currentUser);
+  const posts = useSelector((state) => state.list);
+  const selectedPost = posts.find((post) => post.id === id);
+  const isOwner = selectedPost.authorId === user.uid;
   const [editing, setEditing] = useState(false); //edit모드 확인
   const [editData, setEditData] = useState({
-    ...FeedObj,
+    ...selectedPost,
     file: null,
-    imageUrl: FeedObj.imageUrl,
+    imageUrl: selectedPost.imageUrl,
   });
   const storageService = getStorage();
   const dispatch = useDispatch();
@@ -36,9 +36,9 @@ const Feed = ({ FeedObj, isOwner }) => {
     const ok = window.confirm("정말로 삭제하시겠습니까?");
     if (ok) {
       await deleteDoc(FeedRef);
-      await deleteObject(ref(storageService, FeedObj.imageUrl));
-      dispatch(removePost(id));
-      navigate(`/main`, { deletedPostId: id });
+      await deleteObject(ref(storageService, selectedPost.imageUrl));
+      navigate(`/main`);
+      dispatch(removePost(selectedPost.id));
     }
   };
   const handleImageChange = (e) => {
@@ -47,7 +47,7 @@ const Feed = ({ FeedObj, isOwner }) => {
       setEditData({ ...editData, file, imageUrl: URL.createObjectURL(file) });
     }
   };
-  const formattedDate = new Date(FeedObj.createdAt).toLocaleDateString(
+  const formattedDate = new Date(selectedPost.createdAt).toLocaleDateString(
     "ko-KR",
     {
       year: "numeric",
@@ -63,7 +63,11 @@ const Feed = ({ FeedObj, isOwner }) => {
   };
   const handleCancelEdit = () => {
     setEditing(false);
-    setEditData({ ...FeedObj, file: null, imageUrl: FeedObj.imageUrl });
+    setEditData({
+      ...selectedPost,
+      file: null,
+      imageUrl: selectedPost.imageUrl,
+    });
   };
   const submitEdit = async (e) => {
     e.preventDefault();
@@ -73,10 +77,10 @@ const Feed = ({ FeedObj, isOwner }) => {
       return;
     }
     if (
-      title === FeedObj.title &&
-      content === FeedObj.content &&
-      category === FeedObj.category &&
-      imageUrl === FeedObj.imageUrl
+      title === selectedPost.title &&
+      content === selectedPost.content &&
+      category === selectedPost.category &&
+      imageUrl === selectedPost.imageUrl
     ) {
       alert("수정사항이 없습니다");
       return;
@@ -124,7 +128,7 @@ const Feed = ({ FeedObj, isOwner }) => {
           </Title>
           <PostInfo>
             <UserInfo>
-              <UserName>{FeedObj.userName}</UserName>
+              <UserName>{selectedPost.userName}</UserName>
               <CreatedAt>{formattedDate}</CreatedAt>
             </UserInfo>
             <Category>
@@ -180,7 +184,7 @@ const Feed = ({ FeedObj, isOwner }) => {
           </FeedHeader>
           <PostInfo>
             <UserInfo>
-              <UserName>{FeedObj.userName}</UserName>
+              <UserName>{selectedPost.userName}</UserName>
               <CreatedAt>{selectedPost.formattedDate}</CreatedAt>
             </UserInfo>
             <Category>카테고리: {selectedPost.category}</Category>

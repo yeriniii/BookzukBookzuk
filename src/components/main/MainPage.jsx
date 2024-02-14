@@ -7,7 +7,7 @@ const MainPage = () => {
   // 리뷰 리스트
   const lists = useSelector((state) => state.list);
   // 리뷰,추천,중고거래중 하나 가져오기
-  const haaderBox = useSelector((state) => state.headerName);
+  const selectedCategory = useSelector((state) => state.headerName);
 
   // 검색기능
   const [searchText, setSearchText] = useState("");
@@ -15,7 +15,7 @@ const MainPage = () => {
 
   useEffect(() => {
     setSearchList([...lists]);
-  }, [haaderBox]);
+  }, [selectedCategory]);
 
   const searchInputChange = (event) => {
     setSearchText(event.target.value);
@@ -28,6 +28,7 @@ const MainPage = () => {
     setSearchList(filteredLists);
     setSearchText("");
   };
+
   return (
     <MainPageeSt>
       <SearchBox>
@@ -40,15 +41,11 @@ const MainPage = () => {
         <button onClick={searchButton}>검색</button>
       </SearchBox>
       <BookList>
-        {haaderBox === "리뷰"
-          ? searchList.map((list) => {
-              if (list.category === "리뷰" || list.category === "추천") {
-                return <BookCards key={list.id} list={list} />;
-              }
-            })
-          : searchList
-              .filter((list) => list.category === "추천")
-              .map((list) => <BookCards key={list.id} list={list} />)}
+        {searchList
+          .filter((list) => list.category === selectedCategory)
+          .map((list) => (
+            <BookCards key={list.id} list={list} />
+          ))}
       </BookList>
     </MainPageeSt>
   );

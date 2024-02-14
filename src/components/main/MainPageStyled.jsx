@@ -26,10 +26,15 @@ export const BookCard = styled.article`
   height: 300px;
   width: 200px;
   padding: 20px;
-  border: 1px solid black;
-  box-shadow: 3px 3px 3px black;
+  border: 1px solid gray;
+  border-radius: 5px;
+  box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.5);
   p {
     color: black;
+  }
+  transition: transform 0.3s ease-in-out;
+  &:hover {
+    transform: scale(1.05);
   }
 `;
 
