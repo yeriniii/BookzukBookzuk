@@ -2,10 +2,6 @@ import { collection, getDocs, query } from "firebase/firestore";
 import { db } from "../../assets/fierbase";
 import * as actionTypes from "./actionTypes";
 
-<<<<<<< HEAD
-const q = query(collection(db, "books"));
-const querySnapShot = await getDocs(q);
-=======
 const fetchInitialData = async () => {
   const q = query(collection(db, "books"));
   const querySnapShot = await getDocs(q);
@@ -19,7 +15,6 @@ const fetchInitialData = async () => {
   });
   return initialCreatedLists;
 };
->>>>>>> 89c5f8e99f18afffeab186434b4d84766662beff
 
 const initialState = [];
 
