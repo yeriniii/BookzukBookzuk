@@ -15,6 +15,13 @@ import {
   LoginButtonAndMembership,
 } from "../styles/LoginStyled";
 import { useDispatch } from "react-redux";
+import {
+  collection,
+  getDocs,
+  getFirestore,
+  query,
+  where,
+} from "@firebase/firestore";
 
 function CreateAccount() {
   const navigate = useNavigate();
@@ -22,6 +29,7 @@ function CreateAccount() {
   const [userEmail, setUserEmail] = useState("");
   const [userPW, setUserPW] = useState("");
   const [userName, setUserName] = useState("");
+  const db = getFirestore();
 
   const onChangeSet = (e) => {
     const {
@@ -35,6 +43,36 @@ function CreateAccount() {
     }
     if (name === "userName") {
       setUserName(value);
+    }
+  };
+
+  // 중복된 이메일 검사 함수
+  const checkDuplicateEmails = async (email) => {
+    try {
+      const emailQuery = query(
+        collection(db, "users"),
+        where("email", "==", email)
+      );
+      const emailQuerySnapshot = await getDocs(emailQuery);
+      return emailQuerySnapshot.size > 0;
+    } catch (error) {
+      console.error("이메일 중복 확인 실패:", error);
+      return false;
+    }
+  };
+
+  // 중복된 닉네임 검사 함수
+  const checkDuplicateNicknames = async (nickname) => {
+    try {
+      const nicknameQuery = query(
+        collection(db, "users"),
+        where("nickname", "==", nickname)
+      );
+      const nicknameQuerySnapshot = await getDocs(nicknameQuery);
+      return nicknameQuerySnapshot.size > 0;
+    } catch (error) {
+      console.error("닉네임 중복 확인 실패:", error);
+      return false;
     }
   };
 
@@ -61,6 +99,18 @@ function CreateAccount() {
       alert("비밀번호는 최소 6글자 이상이어야 합니다.");
       return;
     }
+    // 이메일 중복 검사
+    const duplicateEmail = await checkDuplicateEmails(userEmail);
+    if (duplicateEmail) {
+      alert("중복된 이메일 주소입니다.");
+      return;
+    }
+    // 닉네임 중복 검사
+    const duplicateNickname = await checkDuplicateNicknames(userName);
+    if (duplicateNickname) {
+      alert("중복된 닉네임입니다.");
+      return;
+    }
     try {
       const userCredential = await createUserWithEmailAndPassword(
         auth,
@@ -71,6 +121,8 @@ function CreateAccount() {
         displayName: userName,
       });
       console.log("회원가입 완료");
+      alert("회원가입이 완료 되었습니다.");
+      navigate(`/login`);
       dispatch(
         setUser({
           ...userCredential.user,
@@ -79,11 +131,15 @@ function CreateAccount() {
       );
     } catch (error) {
       console.error("회원가입 실패", error);
+      if (error.code === "auth/email-already-in-use") {
+        alert("이미 사용 중인 이메일 주소입니다.");
+      } else {
+        alert("회원가입에 실패했습니다.");
+      }
     }
     setUserEmail("");
     setUserPW("");
     setUserName("");
-    navigate(`/login`);
   };
 
   return (
