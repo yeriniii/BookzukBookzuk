@@ -32,6 +32,10 @@
 
 - 개발내용 : 마이페이지 및 이미지 파일
 
+### 기술스택
+
+<img src="https://img.shields.io/badge/node.js-339933?style=for-the-badge&logo=Node.js&logoColor=white">
+
 ## 📌 주요 기능
 
 1. 페이지 CRUD : 책리뷰,추천,중고거래 글을 작성 및 수정/삭제 할 수 있습니다.
