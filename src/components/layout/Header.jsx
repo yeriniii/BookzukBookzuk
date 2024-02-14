@@ -1,17 +1,33 @@
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import Logo from "../../assets/bookzuk-logo.png";
+import { logoutUser } from "../../redux/modules/actions";
+import { getAuth } from "firebase/auth";
 
 const Header = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const user = useSelector((state) => state.user.currentUser);
+  const auth = getAuth();
+
+  const handleLogout = async () => {
+    try {
+      await auth.signOut();
+      dispatch(logoutUser());
+      console.log("로그아웃 확인");
+      alert("로그아웃이 완료 되었습니다.");
+      navigate("/");
+    } catch (error) {
+      console.log("로그아웃 오류:", error.message);
+    }
+  };
 
   return (
     <>
       <HeaderBlock>
         <HeaderWrapper>
-          <LogoImage onClick={() => navigate(`/`)}>
+          <LogoImage onClick={() => navigate(`/home`)}>
             <img src={Logo} alt="logo이미지"></img>
           </LogoImage>
           <TabBtn>
@@ -20,18 +36,11 @@ const Header = () => {
             <button>중고거래</button>
           </TabBtn>
           <ActionBtn>
-            {user ? (
-              <div>
-                <button onClick={() => navigate(`/mypage`)}>마이페이지</button>
-                <button onClick={() => navigate(`/write`)}>새 글 작성</button>
-                <button onClick={() => navigate(`/logout`)}>로그아웃</button>
-              </div>
-            ) : (
-              <div>
-                <button onClick={() => navigate(`/login`)}>로그인</button>
-                <button onClick={() => navigate(`/signup`)}>회원가입</button>
-              </div>
-            )}
+            <div>
+              <button onClick={() => navigate(`/mypage`)}>마이페이지</button>
+              <button onClick={() => navigate(`/write`)}>새 글 작성</button>
+              <button onClick={handleLogout}>로그아웃</button>
+            </div>
           </ActionBtn>
         </HeaderWrapper>
       </HeaderBlock>

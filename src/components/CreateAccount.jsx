@@ -1,11 +1,11 @@
 import styled from "styled-components";
 import Logo from "../assets/bookzuk-logo.png";
 import { useState } from "react";
-import { createUserWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../firebase";
+import { createUserWithEmailAndPassword, getAuth } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 function CreateAccount() {
   const navigate = useNavigate();
+  const auth = getAuth();
 
   const [userEmail, setUserEmail] = useState("");
   const [userPW, setUserPW] = useState("");
@@ -85,8 +85,7 @@ function CreateAccount() {
       <LoginButtonAndMembership>
         <button onClick={signUp}>회원가입</button>
         <p>
-          이미 회원이세요?{" "}
-          <span onClick={() => navigate(`/login`)}>로그인</span>
+          이미 회원이세요? <span onClick={() => navigate(`/`)}>로그인</span>
         </p>
       </LoginButtonAndMembership>
     </Container>
