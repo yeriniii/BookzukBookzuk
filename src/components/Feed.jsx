@@ -16,8 +16,10 @@ import { storage } from "../assets/fierbase";
 import { updateDoc } from "firebase/firestore";
 const Feed = ({ FeedObj, isOwner }) => {
   const { id } = useParams();
-  const { posts } = useSelector((state) => state.post); // Redux 스토어의 상태에서 포스트 배열을 가져옴
+  const posts = useSelector((state) => state.post.allPosts); // Redux 스토어의 상태에서 포스트 배열을 가져옴
+  console.log(posts);
   const selectedPost = posts.find((post) => post.id === id);
+  console.log(selectedPost);
   const [editing, setEditing] = useState(false); //edit모드 확인
   const [editData, setEditData] = useState({
     ...FeedObj,

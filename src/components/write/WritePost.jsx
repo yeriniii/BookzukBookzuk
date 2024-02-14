@@ -14,7 +14,7 @@ function WritePost() {
   const [selectedFile, setSelectedFile] = useState(null);
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user.currentUser);
-  const posts = useSelector((state) => state.post); // post 리듀서의 상태 가져오기
+  const posts = useSelector((state) => state.post.allPosts); // post 리듀서의 상태 가져오기
   console.log(posts); // 콘솔에 상태 출력
 
   const clickClearImage = () => {

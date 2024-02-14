@@ -5,6 +5,7 @@ import Profile from "../components/write/Profile";
 import Login from "../components/Login";
 import FeedDetail from "../components/FeedDetail";
 import CreateAccount from "../components/CreateAccount";
+import Feed from "../components/Feed";
 
 const Router = () => {
   return (
