@@ -3,7 +3,7 @@ import Home from "../pages/Home";
 import WritePost from "../components/write/WritePost";
 import Profile from "../components/write/Profile";
 import Login from "../components/Login";
-import FeedDetail from "../components/FeedDetail";
+import Feed from "../components/Feed";
 import CreateAccount from "../components/CreateAccount";
 import Header from "../components/layout/Header";
 import UsedTradePage from "../components/usedtrade/UsedTradePage";
@@ -47,7 +47,7 @@ const Router = () => {
           element={
             <>
               <Header />
-              <FeedDetail />
+              <Feed />
             </>
           }
         />

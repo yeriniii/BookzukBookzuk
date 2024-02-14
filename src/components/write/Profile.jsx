@@ -5,6 +5,7 @@ import { auth, db } from "../../assets/fierbase";
 import ProfilePhotoUpload from "../../redux/modules/ProfilePhotoUpload";
 import { collection, getDocs, query, where } from "firebase/firestore";
 import { ProfileIcon } from "../../assets/ProfileIcon";
+import { Link } from "react-router-dom";
 import {
   ProfileBodyStyle,
   ProfileGroupStyle,
@@ -93,9 +94,14 @@ const Profile = () => {
           {posts.length !== 0 &&
             posts.map((post) => (
               <ProfilePostCardStyle key={post.id}>
-                <img src={post.imageUrl} alt="게시글 이미지" />
-                <h3>{post.title}</h3>
-                <p>{post.content}</p>
+                <Link
+                  to={`/Detail/${post.id}`}
+                  style={{ textDecoration: "none", color: "inherit" }}
+                >
+                  <img src={post.imageUrl} alt="게시글 이미지" />
+                  <h3>{post.title}</h3>
+                  <p>{post.content}</p>
+                </Link>
               </ProfilePostCardStyle>
             ))}
         </ProfilePostCardsStyle>

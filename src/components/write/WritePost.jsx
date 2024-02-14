@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { addPost } from "../../redux/modules/actions";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { storage, db } from "../../assets/fierbase";
+import { v4 as uuidv4 } from "uuid";
 import {
   Container,
   FormContent,
@@ -30,8 +31,6 @@ function WritePost() {
   const navigate = useNavigate();
   const user = useSelector((state) => state.user.currentUser);
 
-  const posts = useSelector((state) => state.post); // post 리듀서의 상태 가져오기
-
   const clickClearImage = () => {
     setSelectedFile(null);
   };
@@ -41,9 +40,10 @@ function WritePost() {
       console.error("모두 입력해주세요.");
       return;
     }
+    const id = uuidv4();
     //template literal로 회원정보 uid경로로 저장하기
     //ref함수를 사용하여 스토리지의 경로를 지정하여 업로드. uploadBytes는 프로미스 반환하지 않으니까 then으로 완료시 처리로직 정의
-    const imageRef = ref(storage, `${user.uid}/${selectedFile.name}`);
+    const imageRef = ref(storage, `${user.uid}/${id}/${selectedFile.name}`);
 
     await uploadBytes(imageRef, selectedFile);
     const imageUrl = await getDownloadURL(imageRef);
