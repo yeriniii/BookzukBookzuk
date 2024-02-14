@@ -18,7 +18,7 @@ function UsedTradePage() {
 
   const searchButton = () => {
     const filteredLists = [...lists].filter((list) =>
-      list.책이름.includes(searchText)
+      list.title.includes(searchText)
     );
     setSearchList(filteredLists);
   };
