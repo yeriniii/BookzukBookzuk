@@ -10,8 +10,7 @@ const Header = () => {
   const user = useSelector((state) => state.user.currentUser);
 
   // 헤더 리뷰,추천,중고거래 선택
-  const haaderBox = useSelector((state) => state.headerName);
-  console.log(haaderBox);
+  const headerBox = useSelector((state) => state.headerName);
   const handleTabClick = (tabName) => {
     dispatch(tabClick(tabName));
     navigate(`/main`);
@@ -28,26 +27,26 @@ const Header = () => {
             <img src={Logo} alt="logo이미지"></img>
           </LogoImage>
           <TabBtn>
-            <button
+            <SelectedButtons
               value={"리뷰"}
-              selected={"리뷰" === haaderBox}
+              selected={"리뷰" === headerBox}
               onClick={() => handleTabClick("리뷰")}
             >
               리뷰
-            </button>
-            <button
+            </SelectedButtons>
+            <SelectedButtons
               value={"추천"}
               onClick={() => handleTabClick("추천")}
-              selected={"추천" === haaderBox}
+              selected={"추천" === headerBox}
             >
               추천
-            </button>
-            <button
+            </SelectedButtons>
+            <SelectedButtons
               onClick={() => tradeBtton("중고거래")}
-              selected={"추천" === haaderBox}
+              selected={"중고거래" === headerBox}
             >
               중고거래
-            </button>
+            </SelectedButtons>
           </TabBtn>
           <ActionBtn>
             {user ? (
@@ -100,19 +99,16 @@ const TabBtn = styled.div`
   justify-content: center;
   gap: 1.5rem;
   height: 70%;
-  button {
-    border: 1px solid green;
-    border-radius: 5px;
-    background-color: ${(props) => {
-      console.log(props.selected);
-      props.selected ? "yellow" : "transparent";
-    }};
-    cursor: pointer;
-    font-size: 1.2rem;
-    width: 130px;
-    &:hover {
-      background-color: yellow;
-    }
+`;
+const SelectedButtons = styled.button`
+  border: 1px solid green;
+  border-radius: 5px;
+  background-color: ${(props) => (props.selected ? "yellow" : "transparent")};
+  cursor: pointer;
+  font-size: 1.2rem;
+  width: 130px;
+  &:hover {
+    background-color: yellow;
   }
 `;
 const ActionBtn = styled.div`

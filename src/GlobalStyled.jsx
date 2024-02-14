@@ -77,6 +77,10 @@ a{
 	--grey-color: #F3EFF2;
 }
 
+button {
+	cursor: pointer;
+}
+
 `;
 
 export default GlobalStyle;

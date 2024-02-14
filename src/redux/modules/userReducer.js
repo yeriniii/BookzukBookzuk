@@ -19,13 +19,8 @@ const userReducer = (state = initialState, action) => {
     case actionTypes.SET_USER_PROFILE:
       return {
         ...state,
-        profile: action.payload,
-      };
-    case actionTypes.SET_USER_POSTS:
-      return {
-        ...state,
-        posts: action.payload,
-      };
+        profile: action.payload
+      }
     default:
       return state;
   }
