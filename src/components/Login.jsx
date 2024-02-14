@@ -11,6 +11,7 @@ import {
   PwInput,
   LoginButtonAndMembership,
 } from "../styles/LoginStyled";
+import { setUser } from "../redux/modules/actions";
 import { useDispatch, useSelector } from "react-redux";
 import { showModal, hideModal } from "../redux/modules/actions";
 import ValidationModal from "./layout/ValidationModal";
@@ -18,8 +19,8 @@ import ValidationModal from "./layout/ValidationModal";
 function Login() {
   const navigate = useNavigate();
   const auth = getAuth();
-  const { isVisible, message } = useSelector((state) => state.modal);
   const dispatch = useDispatch();
+  const { isVisible, message } = useSelector((state) => state.modal);
   const [loginID, setLoginID] = useState("");
   const [loginPW, setLoginPW] = useState("");
   const [loginSuccess, setLoginSuccess] = useState(false);
@@ -34,6 +35,7 @@ function Login() {
       );
       setLoginSuccess(true);
       const user = userCredential.user;
+      dispatch(setUser(user));
       dispatch(
         showModal({
           message: "로그인이 완료 되었습니다.",
@@ -57,7 +59,6 @@ function Login() {
   return (
     <Container>
       <LogoImage>
-        {" "}
         <img src={Logo} alt="logo이미지"></img>
       </LogoImage>
       <LogoTitle>
