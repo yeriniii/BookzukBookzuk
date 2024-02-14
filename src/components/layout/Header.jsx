@@ -19,11 +19,15 @@ const Header = () => {
     dispatch(tabClick(tabName));
     navigate("/trade");
   };
+  const goHome = (tabName) => {
+    dispatch(tabClick(tabName));
+    navigate(`/main`);
+  };
   return (
     <>
       <HeaderBlock>
         <HeaderWrapper>
-          <LogoImage onClick={() => navigate(`/main`)}>
+          <LogoImage onClick={() => goHome("리뷰")}>
             <img src={Logo} alt="logo이미지"></img>
           </LogoImage>
           <TabBtn>

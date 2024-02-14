@@ -1,7 +1,7 @@
 import { useSelector } from "react-redux";
 import BookCards from "./BookCards";
 import { BookList, MainPageeSt, SearchBox } from "./MainPageStyled";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const MainPage = () => {
   // 리뷰 리스트
@@ -13,6 +13,10 @@ const MainPage = () => {
   const [searchText, setSearchText] = useState("");
   const [searchList, setSearchList] = useState([...lists]);
 
+  useEffect(() => {
+    setSearchList([...lists]);
+  }, [haaderBox]);
+
   const searchInputChange = (event) => {
     setSearchText(event.target.value);
   };
@@ -22,6 +26,7 @@ const MainPage = () => {
       list.title.includes(searchText)
     );
     setSearchList(filteredLists);
+    setSearchText("");
   };
   return (
     <MainPageeSt>
