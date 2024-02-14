@@ -48,7 +48,6 @@ function Login() {
   return (
     <Container>
       <LogoImage>
-        {" "}
         <img src={Logo} alt="logo이미지"></img>
       </LogoImage>
       <LogoTitle>
