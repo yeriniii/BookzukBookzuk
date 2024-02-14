@@ -6,6 +6,7 @@ import Login from "../components/Login";
 import FeedDetail from "../components/FeedDetail";
 import CreateAccount from "../components/CreateAccount";
 import Header from "../components/layout/Header";
+import UsedTradePage from "../components/usedtrade/UsedTradePage";
 
 const Router = () => {
   return (
@@ -47,6 +48,15 @@ const Router = () => {
             <>
               <Header />
               <FeedDetail />
+            </>
+          }
+        />
+        <Route
+          path="/trade"
+          element={
+            <>
+              <Header />
+              <UsedTradePage />
             </>
           }
         />

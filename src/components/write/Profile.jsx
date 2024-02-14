@@ -70,8 +70,6 @@ const Profile = () => {
     return <div>프로필 정보를 등록해주세요!</div>;
   }
 
-  console.log(profile);
-
   return (
     <ProfileBodyStyle>
       <h1>프로필</h1>
