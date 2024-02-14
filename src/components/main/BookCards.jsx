@@ -1,4 +1,3 @@
-import Logo from "../../assets/bookzuk-logo.png";
 import { Link } from "react-router-dom";
 import {
   BookCard,
@@ -21,7 +20,7 @@ const BookCards = ({ list }) => {
             <img src={list.imageUrl} />
           </BookImg>
           <BookTitle>{list.title}</BookTitle>
-          {list.글종류 === "중고거래" ? (
+          {list.category === "중고거래" ? (
             // 아직 금액 없음
             <Contents>{list.id}원</Contents>
           ) : (

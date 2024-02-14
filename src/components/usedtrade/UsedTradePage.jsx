@@ -18,7 +18,7 @@ function UsedTradePage() {
 
   const searchButton = () => {
     const filteredLists = [...lists].filter((list) =>
-      list.책이름.includes(searchText)
+      list.title.includes(searchText)
     );
     setSearchList(filteredLists);
   };
@@ -37,7 +37,7 @@ function UsedTradePage() {
         </SearchBox>
         <BookList>
           {searchList.map((list) => {
-            return list.글종류 === "중고거래" ? (
+            return list.category === "중고거래" ? (
               <BookCards key={list.id} list={list} />
             ) : null;
           })}
