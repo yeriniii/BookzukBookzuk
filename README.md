@@ -1,8 +1,139 @@
-# React + Vite
+# 프로젝트이름
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+- 프로젝트 사이트 (무슨무슨사이트)
+- 주소 : (배포사이트주소)
 
-Currently, two official plugins are available:
+<br/>
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🖥️ 프로젝트 소개
+
+북 커뮤니티 사이트 입니다.
+
+<br/>
+
+## 🕰️ 개발 기간
+
+- 24.00.00 - 24.00.00 (0일간)
+
+### 🧑‍🤝‍🧑 맴버구성
+
+- 팀장 : 000
+
+- 개발내용
+
+- 팀원1 : 000
+
+- 개발내용
+
+- 팀원1 : 000
+
+- 개발내용
+
+- 팀원1 : 000
+
+- 개발내용
+
+### ⚙️ 개발 환경
+
+- HTML5, CSS3
+- 기술스택 : webpack, babel, dotenv
+- Framework : Bootstrap(5.3.2)
+- Database : Local Storage
+- environment : Visual Studio Code, git, github
+- communication : figma, slack, notion, zep
+
+<br/>
+
+## 🍿 프로젝트 화면 구성 및 기능
+
+- 메인 페이지
+
+- 메인
+
+- 상세 페이지
+
+- 상세페이지
+
+- 검색
+
+- 검색
+
+- 정렬
+
+- 정렬
+
+<br/>
+
+## 📌 주요 기능
+
+### 필수 구현사항
+
+1.
+2.
+
+### 선택 구현사항
+
+1.
+2.
+
+<br/>
+
+## 📝 KPT 회고
+
+### Keep (유지하고 싶은 좋았던 점)
+
+- 이름
+
+- 내용
+
+- 이름
+
+- 내용
+
+- 이름
+
+- 내용
+
+- 이름
+
+- 내용
+
+<br/>
+
+### Problem (아쉬웠던 점)
+
+- 이름
+
+- 내용
+
+- 이름
+
+- 내용
+
+- 이름
+
+- 내용
+
+- 이름
+
+- 내용
+
+<br/>
+
+### Try (Problem 해결 방법, 앞으로의 다짐 등)
+
+- 이름
+
+- 내용
+
+- 이름
+
+- 내용
+
+- 이름
+
+- 내용
+
+- 이름
+
+- 내용
