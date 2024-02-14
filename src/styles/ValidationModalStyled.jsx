@@ -51,6 +51,6 @@ export const ConfirmClickBtnStyle = styled.button`
   margin-left: 10px;
   color: white;
   &:hover {
-    background-color: #8860a5;
+    opacity: 80%;
   }
 `;

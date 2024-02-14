@@ -14,7 +14,9 @@ import {
   PwInput,
   LoginButtonAndMembership,
 } from "../styles/LoginStyled";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { showModal, hideModal } from "../redux/modules/actions";
+import ValidationModal from "./layout/ValidationModal";
 
 function CreateAccount() {
   const navigate = useNavigate();
@@ -22,6 +24,8 @@ function CreateAccount() {
   const [userEmail, setUserEmail] = useState("");
   const [userPW, setUserPW] = useState("");
   const [userName, setUserName] = useState("");
+  const { isVisible, message } = useSelector((state) => state.modal);
+  const [signupSuccess, setSignupSuccess] = useState(false);
 
   const onChangeSet = (e) => {
     const {
@@ -70,20 +74,29 @@ function CreateAccount() {
       await updateProfile(userCredential.user, {
         displayName: userName,
       });
-      console.log("회원가입 완료");
       dispatch(
         setUser({
           ...userCredential.user,
           displayName: userName, // Redux 스토어에도 닉네임 정보 추가
         })
       );
+      setSignupSuccess(true);
+      dispatch(
+        showModal({
+          message: "회원가입이 완료 되었습니다.",
+        })
+      );
     } catch (error) {
-      console.error("회원가입 실패", error);
+      setSignupSuccess(false);
+      dispatch(
+        showModal({
+          message: "회원가입이 실패했습니다.",
+        })
+      );
     }
     setUserEmail("");
     setUserPW("");
     setUserName("");
-    navigate(`/login`);
   };
 
   return (
@@ -128,6 +141,20 @@ function CreateAccount() {
           <span onClick={() => navigate(`/login`)}>로그인</span>
         </p>
       </LoginButtonAndMembership>
+      {isVisible && (
+        <ValidationModal
+          isVisible={isVisible}
+          message={message}
+          onCancel={() => dispatch(hideModal())}
+          onConfirm={() => {
+            dispatch(hideModal());
+            if (signupSuccess) {
+              navigate(`/login`);
+            }
+          }}
+          showCancelButton={false}
+        />
+      )}
     </Container>
   );
 }
