@@ -27,10 +27,12 @@ const Header = () => {
 
   // 로그아웃 기능
   const handleLogout = () => {
+    console.log("로그아웃", user);
     dispatch(clearUser());
     alert("로그아웃이 완료 되었습니다.");
     navigate("/");
   };
+  console.log("로그인 후 유저정보 확인", user);
   return (
     <>
       <HeaderBlock>
