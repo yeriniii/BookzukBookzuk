@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import Logo from "../../assets/bookzuk-logo.png";
 import { tabClick } from "../../redux/modules/headerReducer";
+import { clearUser } from "../../redux/modules/actions";
 
 const Header = () => {
   const dispatch = useDispatch();
@@ -22,6 +23,13 @@ const Header = () => {
   const goHome = (tabName) => {
     dispatch(tabClick(tabName));
     navigate(`/main`);
+  };
+
+  // 로그아웃 기능
+  const handleLogout = () => {
+    dispatch(clearUser());
+    alert("로그아웃이 완료 되었습니다.");
+    navigate("/");
   };
   return (
     <>
@@ -57,7 +65,7 @@ const Header = () => {
               <div>
                 <button onClick={() => navigate(`/mypage`)}>마이페이지</button>
                 <button onClick={() => navigate(`/write`)}>새 글 작성</button>
-                <button onClick={() => navigate(`/`)}>로그아웃</button>
+                <button onClick={handleLogout}>로그아웃</button>
               </div>
             ) : (
               <div>

@@ -38,8 +38,29 @@ function CreateAccount() {
     }
   };
 
+  // 이메일 유효성 검사 함수
+  const isEmailValid = (email) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.(com|net)$/;
+    return emailRegex.test(email);
+  };
+
   const signUp = async (e) => {
     e.preventDefault();
+    // 닉네임 길이 검사
+    if (userName.length < 2) {
+      alert("닉네임은 최소 2글자 이상이어야 합니다.");
+      return;
+    }
+    // 이메일 유효성 검사
+    if (!isEmailValid(userEmail)) {
+      alert("올바른 이메일 주소를 입력하세요.");
+      return;
+    }
+    // 비밀번호 길이 검사
+    if (userPW.length < 6) {
+      alert("비밀번호는 최소 6글자 이상이어야 합니다.");
+      return;
+    }
     try {
       const userCredential = await createUserWithEmailAndPassword(
         auth,
