@@ -11,16 +11,19 @@ import {
   PwInput,
   LoginButtonAndMembership,
 } from "../styles/LoginStyled";
-import { useDispatch } from "react-redux";
 import { setUser } from "../redux/modules/actions";
+import { useDispatch, useSelector } from "react-redux";
+import { showModal, hideModal } from "../redux/modules/actions";
+import ValidationModal from "./layout/ValidationModal";
 
 function Login() {
   const navigate = useNavigate();
   const auth = getAuth();
   const dispatch = useDispatch();
-
+  const { isVisible, message } = useSelector((state) => state.modal);
   const [loginID, setLoginID] = useState("");
   const [loginPW, setLoginPW] = useState("");
+  const [loginSuccess, setLoginSuccess] = useState(false);
 
   const signIn = async (e) => {
     e.preventDefault();
@@ -30,12 +33,28 @@ function Login() {
         loginID,
         loginPW
       );
+      setLoginSuccess(true);
       const user = userCredential.user;
       dispatch(setUser(user));
-      alert("로그인이 완료 되었습니다.");
-      navigate("/main");
+      dispatch(
+        showModal({
+          message: "로그인이 완료 되었습니다.",
+        })
+      );
     } catch (error) {
+<<<<<<< HEAD
       alert("이메일, 비밀번호를 다시 확인해 주세요.");
+=======
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      console.error("로그인 오류:", errorCode, errorMessage);
+      setLoginSuccess(false);
+      dispatch(
+        showModal({
+          message: "이메일, 비밀번호를 다시 확인해 주세요.",
+        })
+      );
+>>>>>>> 86b0c353c8df37f720b24541a9455546e0a4ff89
     }
     setLoginID("");
     setLoginPW("");
@@ -73,6 +92,20 @@ function Login() {
           처음이세요? <span onClick={() => navigate(`/signup`)}>회원가입</span>
         </p>
       </LoginButtonAndMembership>
+      {isVisible && (
+        <ValidationModal
+          isVisible={isVisible}
+          message={message}
+          onCancel={() => dispatch(hideModal())}
+          onConfirm={() => {
+            dispatch(hideModal());
+            if (loginSuccess) {
+              navigate("/main"); // 로그인 성공 시에만 navigate 실행
+            }
+          }}
+          showCancelButton={false}
+        />
+      )}
     </Container>
   );
 }

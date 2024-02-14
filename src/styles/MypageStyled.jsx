@@ -17,6 +17,7 @@ export const ProfileGroupStyle = styled.div`
   display: flex;
   img {
     width: 150px;
+    height: 150px;
     margin: 10px;
   }
 `;
@@ -52,7 +53,7 @@ export const ProfileInputStyle = styled.label`
 `;
 export const ProfileButtonStyle = styled.button`
   font-size: 16px;
-  background-color: var(--main-color);
+  background-color: ${(props) => props.$bgColor || "var(--main-color)"};
   border: none;
   border-radius: 5px;
   color: white;
@@ -82,29 +83,30 @@ export const ProfilePostCardsStyle = styled.div`
 `;
 
 export const ProfilePostCardStyle = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 10px;
   width: 200px;
+  height: 260px;
   min-height: 250px;
   border: 1px solid var(--grey-color);
   border-radius: 10px;
   padding: 20px;
 
   img {
-    width: 200px;
-    height: 200px;
+    width: 150px;
+    height: 150px;
   }
   h3 {
-    padding: 10px;
-    font-weight: bold;
-    font-size: 24px;
     margin-top: 10px;
+    font-weight: bold;
+    font-size: 20px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
   p {
-    padding: 10px;
-    margin-top: 15px;
+    margin-top: 10px;
     font-size: 16px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 `;

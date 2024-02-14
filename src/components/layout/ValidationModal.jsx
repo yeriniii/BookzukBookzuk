@@ -6,13 +6,18 @@ import {
   ConfirmClickBtnStyle,
 } from "../../styles/ValidationModalStyled";
 
-function ValidationModal() {
+function ValidationModal({
+  message,
+  onCancel,
+  onConfirm,
+  showCancelButton = true,
+}) {
   return (
     <ModalBackdropStyle>
       <ModalContentStyle>
-        <ModalMessageStyle>유효성 검사를 위한 메세지입니다.</ModalMessageStyle>
+        <ModalMessageStyle>{message}</ModalMessageStyle>
         <div>
-          {showConfirmButton && (
+          {showCancelButton && (
             <CancelClickBtnStyle onClick={onCancel}>취소</CancelClickBtnStyle>
           )}
           <ConfirmClickBtnStyle onClick={onConfirm}>확인</ConfirmClickBtnStyle>
