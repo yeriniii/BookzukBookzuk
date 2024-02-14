@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 const MainPage = () => {
   // 리뷰 리스트
   const lists = useSelector((state) => state.list);
+  console.log(lists);
   // 리뷰,추천,중고거래중 하나 가져오기
   const selectedCategory = useSelector((state) => state.headerName);
 
@@ -15,7 +16,7 @@ const MainPage = () => {
 
   useEffect(() => {
     setSearchList([...lists]);
-  }, [selectedCategory]);
+  }, [selectedCategory, lists]);
 
   const searchInputChange = (event) => {
     setSearchText(event.target.value);
@@ -23,7 +24,9 @@ const MainPage = () => {
 
   const searchButton = () => {
     const filteredLists = [...lists].filter((list) =>
-      list.title.includes(searchText)
+      list.title
+        .replace(/(\s*)/g, "")
+        .includes(searchText.replace(/(\s*)/g, ""))
     );
     setSearchList(filteredLists);
     setSearchText("");

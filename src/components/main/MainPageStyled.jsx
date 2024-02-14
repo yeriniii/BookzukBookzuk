@@ -11,6 +11,24 @@ export const MainPageeSt = styled.main`
 export const SearchBox = styled.div`
   display: flex;
   gap: 1rem;
+  width: 50%;
+  input {
+    width: 80%;
+    border: none;
+    border-bottom: 2px solid black;
+  }
+  button {
+    width: 70px;
+    border: none;
+    border-radius: 30px;
+    padding: 10px;
+    font-weight: bold;
+
+    &:hover {
+      background-color: #00966e;
+      color: white;
+    }
+  }
 `;
 
 export const BookList = styled.section`

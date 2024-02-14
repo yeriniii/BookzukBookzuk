@@ -30,7 +30,7 @@ const Feed = () => {
   const storageService = getStorage();
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const FeedRef = doc(db, "books", `${id}`);
+  const FeedRef = doc(db, "books", id);
 
   const handleDelete = async () => {
     const ok = window.confirm("정말로 삭제하시겠습니까?");
@@ -209,7 +209,6 @@ const FeedContainer = styled.div`
   background-color: #fff;
   padding: 20px;
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
-  position: relative;
 `;
 const FeedHeader = styled.div`
   display: flex;

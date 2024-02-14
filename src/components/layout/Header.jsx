@@ -20,6 +20,7 @@ const Header = () => {
     dispatch(tabClick(tabName));
     navigate("/trade");
   };
+
   const goHome = (tabName) => {
     dispatch(tabClick(tabName));
     navigate(`/main`);
@@ -27,12 +28,10 @@ const Header = () => {
 
   // 로그아웃 기능
   const handleLogout = () => {
-    console.log("로그아웃", user);
     dispatch(clearUser());
     alert("로그아웃이 완료 되었습니다.");
     navigate("/");
   };
-  console.log("로그인 후 유저정보 확인", user);
   return (
     <>
       <HeaderBlock>
@@ -84,8 +83,10 @@ const Header = () => {
 };
 
 const HeaderBlock = styled.div`
-  position: fixed;
+  position: sticky;
+  top: 0;
   width: 100%;
+  z-index: 330px;
   background-color: #f3eff2;
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.08);
 `;
@@ -116,7 +117,7 @@ const TabBtn = styled.div`
 `;
 const SelectedButtons = styled.button`
   border: none;
-  border-radius: 5px;
+  border-radius: 50px;
   background-color: ${(props) => (props.selected ? "#00966e" : "transparent")};
   color: ${(props) => (props.selected ? "white" : "black")};
   cursor: pointer;
@@ -140,6 +141,6 @@ const ActionBtn = styled.div`
   }
 `;
 const Spacer = styled.div`
-  height: 8rem;
+  height: 2rem;
 `;
 export default Header;
