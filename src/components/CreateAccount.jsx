@@ -90,29 +90,50 @@ function CreateAccount() {
     e.preventDefault();
     // 닉네임 길이 검사
     if (userName.length < 2) {
+      dispatch(
+        showModal({
+          message: "닉네임은 최소 2글자 이상이어야 합니다.",
+        })
+      );
       alert("닉네임은 최소 2글자 이상이어야 합니다.");
       return;
     }
     // 이메일 유효성 검사
     if (!isEmailValid(userEmail)) {
-      alert("올바른 이메일 주소를 입력하세요.");
+      dispatch(
+        showModal({
+          message: "올바른 이메일 주소를 입력하세요.",
+        })
+      );
       return;
     }
     // 비밀번호 길이 검사
     if (userPW.length < 6) {
-      alert("비밀번호는 최소 6글자 이상이어야 합니다.");
+      dispatch(
+        showModal({
+          message: "비밀번호는 최소 6글자 이상이어야 합니다.",
+        })
+      );
       return;
     }
     // 이메일 중복 검사
     const duplicateEmail = await checkDuplicateEmails(userEmail);
     if (duplicateEmail) {
-      alert("중복된 이메일 주소입니다.");
+      dispatch(
+        showModal({
+          message: "중복된 이메일 주소입니다.",
+        })
+      );
       return;
     }
     // 닉네임 중복 검사
     const duplicateNickname = await checkDuplicateNicknames(userName);
     if (duplicateNickname) {
-      alert("중복된 닉네임입니다.");
+      dispatch(
+        showModal({
+          message: "중복된 닉네임이기 때문에 사용할 수 없습니다.",
+        })
+      );
       return;
     }
     try {
@@ -125,7 +146,12 @@ function CreateAccount() {
         displayName: userName,
       });
       console.log("회원가입 완료");
-      alert("회원가입이 완료 되었습니다.");
+      dispatch(
+        showModal({
+          message: "회원가입이 완료 되었습니다.",
+        })
+      );
+
       navigate(`/login`);
       dispatch(
         setUser({
@@ -134,17 +160,20 @@ function CreateAccount() {
         })
       );
       setSignupSuccess(true);
-      dispatch(
-        showModal({
-          message: "회원가입이 완료 되었습니다.",
-        })
-      );
     } catch (error) {
       console.error("회원가입 실패", error);
       if (error.code === "auth/email-already-in-use") {
-        alert("이미 사용 중인 이메일 주소입니다.");
+        dispatch(
+          showModal({
+            message: "이미 사용 중인 이메일 주소입니다.",
+          })
+        );
       } else {
-        alert("회원가입에 실패했습니다.");
+        dispatch(
+          showModal({
+            message: "회원가입 실패!",
+          })
+        );
       }
     }
     setUserEmail("");
