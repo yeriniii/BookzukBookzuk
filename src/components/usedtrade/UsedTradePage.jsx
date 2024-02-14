@@ -24,7 +24,6 @@ function UsedTradePage() {
   };
   return (
     <>
-      <Header />
       <MainPageeSt>
         <SearchBox>
           <input

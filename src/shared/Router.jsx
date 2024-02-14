@@ -5,19 +5,61 @@ import Profile from "../components/write/Profile";
 import Login from "../components/Login";
 import FeedDetail from "../components/FeedDetail";
 import CreateAccount from "../components/CreateAccount";
+import Header from "../components/layout/Header";
 import UsedTradePage from "../components/usedtrade/UsedTradePage";
 
 const Router = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/main" element={<Home />} />
-        <Route path="/write" element={<WritePost />} />
-        <Route path="/mypage" element={<Profile />} />
-        <Route path="/Detail/:id" element={<FeedDetail />} />
         <Route path="/" element={<Login />} />
+        <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<CreateAccount />} />
-        <Route path="/trade" element={<UsedTradePage />} />
+        <Route
+          path="/main"
+          element={
+            <>
+              <Header />
+              <Home />
+            </>
+          }
+        />
+        <Route
+          path="/write"
+          element={
+            <>
+              <Header />
+              <WritePost />
+            </>
+          }
+        />
+        <Route
+          path="/mypage"
+          element={
+            <>
+              <Header />
+              <Profile />
+            </>
+          }
+        />
+        <Route
+          path="/Detail/:id"
+          element={
+            <>
+              <Header />
+              <FeedDetail />
+            </>
+          }
+        />
+        <Route
+          path="/trade"
+          element={
+            <>
+              <Header />
+              <UsedTradePage />
+            </>
+          }
+        />
       </Routes>
     </BrowserRouter>
   );
