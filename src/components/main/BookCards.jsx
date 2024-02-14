@@ -8,7 +8,6 @@ import {
   UserName,
 } from "./MainPageStyled";
 
-// 에러가 뜨는데 작동이 됨;;
 const BookCards = ({ list }) => {
   return (
     // Link 라우터 해야힘

@@ -20,6 +20,7 @@ const Header = () => {
     dispatch(tabClick(tabName));
     navigate("/trade");
   };
+
   const goHome = (tabName) => {
     dispatch(tabClick(tabName));
     navigate(`/main`);

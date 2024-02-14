@@ -1,5 +1,4 @@
 import { useSelector } from "react-redux";
-import Header from "../layout/Header";
 import { useState } from "react";
 import { BookList, MainPageeSt, SearchBox } from "../main/MainPageStyled";
 import BookCards from "../main/BookCards";
