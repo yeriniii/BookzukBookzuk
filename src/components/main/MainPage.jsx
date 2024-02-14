@@ -15,7 +15,7 @@ const MainPage = () => {
 
   useEffect(() => {
     setSearchList([...lists]);
-  }, [haaderBox]);
+  }, [haaderBox, lists]);
 
   const searchInputChange = (event) => {
     setSearchText(event.target.value);
@@ -42,7 +42,7 @@ const MainPage = () => {
       <BookList>
         {haaderBox === "리뷰"
           ? searchList.map((list) => {
-              if (list.category === "리뷰" || list.category === "추천") {
+              if (list.category === "리뷰") {
                 return <BookCards key={list.id} list={list} />;
               }
             })

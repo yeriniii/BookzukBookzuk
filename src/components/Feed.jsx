@@ -30,7 +30,7 @@ const Feed = ({ FeedObj, isOwner }) => {
   const storageService = getStorage();
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const FeedRef = doc(db, "books", `${id}`);
+  const FeedRef = doc(db, "books", id);
 
   const handleDelete = async () => {
     const ok = window.confirm("정말로 삭제하시겠습니까?");
@@ -38,7 +38,7 @@ const Feed = ({ FeedObj, isOwner }) => {
       await deleteDoc(FeedRef);
       await deleteObject(ref(storageService, FeedObj.imageUrl));
       dispatch(removePost(id));
-      navigate(`/main`, { deletedPostId: id });
+      navigate(`/main`);
     }
   };
   const handleImageChange = (e) => {
