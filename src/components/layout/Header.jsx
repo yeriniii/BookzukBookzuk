@@ -4,12 +4,13 @@ import styled from "styled-components";
 import Logo from "../../assets/bookzuk-logo.png";
 import { tabClick } from "../../redux/modules/headerReducer";
 import { clearUser } from "../../redux/modules/actions";
-
+import { showModal, hideModal } from "../../redux/modules/actions";
+import ValidationModal from "../layout/ValidationModal";
 const Header = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const user = useSelector((state) => state.user.currentUser);
-
+  const { isVisible, message } = useSelector((state) => state.modal);
   // 헤더 리뷰,추천,중고거래 선택
   const headerBox = useSelector((state) => state.headerName);
   const handleTabClick = (tabName) => {
@@ -29,7 +30,11 @@ const Header = () => {
   // 로그아웃 기능
   const handleLogout = () => {
     dispatch(clearUser());
-    alert("로그아웃이 완료 되었습니다.");
+    dispatch(
+      showModal({
+        message: "로그아웃이 완료되었습니다.",
+      })
+    );
     navigate("/");
   };
   return (
@@ -78,6 +83,17 @@ const Header = () => {
         </HeaderWrapper>
       </HeaderBlock>
       <Spacer />
+      {isVisible && (
+        <ValidationModal
+          isVisible={isVisible}
+          message={message}
+          onCancel={() => dispatch(hideModal())}
+          onConfirm={() => {
+            dispatch(hideModal());
+          }}
+          showCancelButton={false}
+        />
+      )}
     </>
   );
 };
