@@ -95,7 +95,6 @@ function CreateAccount() {
           message: "닉네임은 최소 2글자 이상이어야 합니다.",
         })
       );
-      alert("닉네임은 최소 2글자 이상이어야 합니다.");
       return;
     }
     // 이메일 유효성 검사

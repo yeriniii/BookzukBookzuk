@@ -19,8 +19,9 @@ import { storage } from "../assets/fierbase";
 import { updateDoc } from "firebase/firestore";
 const Feed = () => {
   const { id } = useParams();
-  const { isVisible, message, onCancel, onConfirm, showCancelButton } =
-    useSelector((state) => state.modal);
+  const { isVisible, message, onConfirm, showCancelButton } = useSelector(
+    (state) => state.modal
+  );
 
   const user = useSelector((state) => state.user.currentUser);
   const posts = useSelector((state) => state.list);
